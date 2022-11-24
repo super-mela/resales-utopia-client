@@ -1,12 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/banner-img4.png";
 
 const Header = () => {
+  // Navbar Scroll Effect
+  const [scroll, setScroll] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setScroll(window.scrollY > 50);
+    });
+  }, []);
+
   const menuItems = (
     <>
       <li>
-        <Link>Home</Link>
+        <NavLink to={"/"} className="bg-transparent">
+          Home
+        </NavLink>
       </li>
       <li tabIndex={0}>
         <Link className="justify-between">
@@ -36,17 +46,21 @@ const Header = () => {
     </>
   );
   return (
-    <div className="text-black font-urbanist">
+    <div className="font-urbanist w-full absolute top-0">
       {/* top navigation */}
-      <div className="flex justify-between text-sm my-2">
+      <div className="flex justify-between text-sm text-white my-3 max-w-[1290px] mx-auto">
         <p>
           Get 50% discount offer <span className="text-primary">26 Days</span>
         </p>
         <Link>Login</Link>
       </div>
       {/* main navigations */}
-      <div className="navbar">
-        <div className="navbar-start">
+      <div
+        className={`navbar min-h-[72px] h-[72px] bg-white text-black max-w-[1290px] mx-auto lg:rounded-sm px-5 mt-4 ${
+          scroll && "fixed w-full rounded-none"
+        }`}
+      >
+        <div className="navbar-start w-full">
           <div className="dropdown">
             <label tabIndex={0} className=" lg:hidden">
               <svg
@@ -78,14 +92,14 @@ const Header = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">
+          <ul className="menu menu-horizontal p-0 text-[18px] font-medium">
             {/* menu Items */}
             {menuItems}
           </ul>
         </div>
-        <div className="navbar-end">
+        {/* <div className="navbar-end">
           <Link className="btn">Get started</Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
