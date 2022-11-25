@@ -46,7 +46,7 @@ const Header = () => {
     </>
   );
   return (
-    <div className="font-urbanist w-full absolute top-0">
+    <div className="font-urbanist w-full absolute top-0 left-0 right-0">
       {/* top navigation */}
       <div className="flex justify-between text-sm text-white my-3 max-w-[1290px] mx-auto">
         <p>
