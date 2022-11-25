@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AiOutlineCaretDown } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/banner-img4.png";
 
@@ -19,29 +20,51 @@ const Header = () => {
         </NavLink>
       </li>
       <li tabIndex={0}>
-        <Link className="justify-between">
-          Parent
-          <svg
-            className="fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-          </svg>
-        </Link>
-        <ul className="p-2">
+        <NavLink to={"/dashboard"} className="flex gap-1 bg-transparent">
+          Dashboard
+          <AiOutlineCaretDown />
+        </NavLink>
+        <ul className="p-2 bg-white">
           <li>
-            <Link>Submenu 1</Link>
+            <Link to={"/myorders"} className="border-b">
+              My Order
+            </Link>
           </li>
           <li>
-            <Link>Submenu 2</Link>
+            <Link to={"/myorders"} className="border-b">
+              Add A Product
+            </Link>
+          </li>
+          <li>
+            <Link to={"/myorders"} className="border-b">
+              My Products
+            </Link>
+          </li>
+          <li>
+            <Link to={"/myorders"} className="border-b">
+              My Buyers
+            </Link>
+          </li>
+          <li>
+            <Link to={"/myorders"} className="border-b">
+              All Sellers
+            </Link>
+          </li>
+          <li>
+            <Link to={"/myorders"} className="border-b">
+              All Buyers
+            </Link>
+          </li>
+          <li>
+            <Link to={"/myorders"} className="border-b">
+              Reported Items
+            </Link>
           </li>
         </ul>
       </li>
+
       <li>
-        <Link>Blog</Link>
+        <NavLink className="bg-transparent">Blog</NavLink>
       </li>
     </>
   );

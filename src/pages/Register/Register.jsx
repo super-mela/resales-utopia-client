@@ -9,7 +9,7 @@ import {
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import banner from "../../assets/banner-img5.png";
+import TopBanner from "../../components/TopBanner/TopBanner";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
@@ -25,12 +25,11 @@ const Register = () => {
   });
 
   const handleRegister = (data) => {
+    // test
+    console.log(data.userType);
     console.log(data.photoUrl[0]);
     formData.append("image", data.photoUrl[0]);
-
-    console.log(
-      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`
-    );
+    // Image upload
     axios({
       method: "post",
       url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
@@ -45,18 +44,10 @@ const Register = () => {
   return (
     <div className="text-secondary font-urbanist">
       {/* cover */}
-      <div
-        className="bg-cover bg-no-repeat bg-bottom flex flex-col items-center justify-center px-24 font-urbanist h-[400px]"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <h1 className="font-bold text-[4.25em] text-white mt-10">Account</h1>
-      </div>
-      <div
-        className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary"
-        style={{
-          backgroundImage: `url('http://demo2.themewarrior.com/hospitalplus/wp-content/uploads/sites/22/2015/07/home-hero-image-3.jpg?id=1049')`,
-        }}
-      >
+      <TopBanner>Account</TopBanner>
+
+      {/* Register form */}
+      <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
         <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form
           onSubmit={handleSubmit(handleRegister)}
@@ -155,6 +146,23 @@ const Register = () => {
               }}
             />
           </div>
+          {/* User Type */}
+
+          <div className="space-y-1 text-sm">
+            <label htmlFor="username" className="block ">
+              User Type
+            </label>
+            <div className="flex items-center gap-1 px-4 py-3 rounded-md border-gray-700 border">
+              <select
+                className="w-full h-full focus:outline-none bg-transparent"
+                {...register("userType")}
+              >
+                <option selected>Buyer</option>
+                <option>Seller</option>
+              </select>
+            </div>
+          </div>
+
           <div className="space-y-1 text-sm">
             <label htmlFor="password" className="block ">
               Password
@@ -218,7 +226,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
+            className="block w-full p-3 text-center rounded-sm  bg-secondary text-white"
           >
             Sign Up
           </button>

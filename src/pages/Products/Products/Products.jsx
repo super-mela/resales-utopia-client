@@ -1,17 +1,12 @@
 import React from "react";
-import banner from "../../../assets/banner-img5.png";
 import BookingModal from "../../../components/BookingModal/BookingModal";
+import TopBanner from "../../../components/TopBanner/TopBanner";
 import ProductCard from "../ProductCard/ProductCard";
 
 const Products = () => {
   return (
     <div>
-      <div
-        className="bg-cover bg-no-repeat bg-bottom flex flex-col items-center justify-center px-24 font-urbanist h-[500px]"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <h1 className="font-bold text-[4.25em] text-white mt-10">Category</h1>
-      </div>
+      <TopBanner>Category</TopBanner>
       <div className="my-10 px-24">
         <div className="w-full text-secondary">
           {/* top bar */}

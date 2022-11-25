@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import banner from "../../assets/banner-img5.png";
+import TopBanner from "../../components/TopBanner/TopBanner";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Login = () => {
@@ -26,13 +26,7 @@ const Login = () => {
   return (
     <div className="text-secondary font-urbanist">
       {/* Cover */}
-      <div
-        className="bg-cover bg-no-repeat bg-bottom flex flex-col items-center justify-center px-24 font-urbanist h-[400px]"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <h1 className="font-bold text-[4.25em] text-white mt-10">Account</h1>
-      </div>
-
+      <TopBanner>Account</TopBanner>
       {/* Login form */}
       <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
         <h1 className="text-2xl font-bold text-center">Sign In</h1>
