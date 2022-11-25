@@ -1,4 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -11,8 +12,10 @@ import { Link } from "react-router-dom";
 import banner from "../../assets/banner-img5.png";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
-const Login = () => {
+const Register = () => {
   const [viewPassword, setViewPassword] = useState(false);
+  const formData = new FormData();
+
   const {
     register,
     formState: { errors },
@@ -21,25 +24,103 @@ const Login = () => {
     criteriaMode: "all",
   });
 
-  const handleLogin = () => {};
+  const handleRegister = (data) => {
+    console.log(data.photoUrl[0]);
+    formData.append("image", data.photoUrl[0]);
+
+    console.log(
+      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`
+    );
+    axios({
+      method: "post",
+      url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
+      data: formData,
+    }).then((res) => {
+      if (res.data.success) {
+        console.log(res.data.data.url);
+      }
+    });
+  };
 
   return (
     <div className="text-secondary font-urbanist">
-      {/* Cover */}
+      {/* cover */}
       <div
         className="bg-cover bg-no-repeat bg-bottom flex flex-col items-center justify-center px-24 font-urbanist h-[400px]"
         style={{ backgroundImage: `url(${banner})` }}
       >
         <h1 className="font-bold text-[4.25em] text-white mt-10">Account</h1>
       </div>
-
-      {/* Login form */}
-      <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
-        <h1 className="text-2xl font-bold text-center">Sign In</h1>
+      <div
+        className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary"
+        style={{
+          backgroundImage: `url('http://demo2.themewarrior.com/hospitalplus/wp-content/uploads/sites/22/2015/07/home-hero-image-3.jpg?id=1049')`,
+        }}
+      >
+        <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form
-          onSubmit={handleSubmit(handleLogin)}
+          onSubmit={handleSubmit(handleRegister)}
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
+          {/* name */}
+          <div className="space-y-1 text-sm">
+            <label htmlFor="username" className="block ">
+              Your Name
+            </label>
+            <input
+              type="text"
+              placeholder="Username"
+              className="w-full px-4 py-3 rounded-md border-gray-700 border  focus:border-violet-400"
+              {...register("name", {
+                required: "Name is required!",
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="name"
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <ValidationError
+                        key={type}
+                        message={message}
+                      ></ValidationError>
+                    ))
+                  : null;
+              }}
+            />
+          </div>
+
+          {/* photourl */}
+          <div className="space-y-1 text-sm">
+            <label htmlFor="username" className="block ">
+              Your Photo Url
+            </label>
+            <input
+              type="file"
+              placeholder="Photo Url"
+              className="w-full px-4 py-3 rounded-md border-gray-700 border  focus:border-violet-400"
+              {...register("photoUrl", {
+                required: "PhotoUrl is required!",
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="photoUrl"
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <ValidationError
+                        key={type}
+                        message={message}
+                      ></ValidationError>
+                    ))
+                  : null;
+              }}
+            />
+          </div>
+
+          {/* email */}
           <div className="space-y-1 text-sm">
             <label htmlFor="username" className="block ">
               Email
@@ -137,15 +218,15 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-secondary text-white"
+            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
           >
-            Sign in
+            Sign Up
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
           <p className="px-3 text-sm text-textPrimary">
-            Login with social accounts
+            Sign up with social accounts
           </p>
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
         </div>
@@ -171,13 +252,13 @@ const Login = () => {
           </button>
         </div>
         <p className="text-xs text-center sm:px-6 text-textPrimary">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
             rel="noopener noreferrer"
-            to="/register"
-            className="underline text-sm text-primary"
+            to="/login"
+            className="underline text-primary text-sm"
           >
-            Sign up
+            Sign In
           </Link>
         </p>
       </div>
@@ -185,4 +266,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
