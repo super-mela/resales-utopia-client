@@ -4,10 +4,10 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-5 py-3 font-bold text-[1rem] rounded-sm;
+    @apply bg-primary text-white text-center px-5 py-3 font-bold text-[1rem] rounded-sm;
   }
   .btn-secondary {
-    @apply bg-secondary text-white px-5 py-3 font-bold text-[1rem] rounded-sm;
+    @apply bg-secondary text-white px-5 py-3  text-center font-bold text-[1rem] rounded-sm;
   }
 }
 

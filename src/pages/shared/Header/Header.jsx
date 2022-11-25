@@ -56,7 +56,7 @@ const Header = () => {
       </div>
       {/* main navigations */}
       <div
-        className={`navbar min-h-[72px] h-[72px] bg-white text-black max-w-[1290px] mx-auto lg:rounded-sm px-5 mt-4 ${
+        className={`navbar min-h-[72px] z-10  h-[72px] bg-white text-black max-w-[1290px] mx-auto lg:rounded-sm px-5 mt-4 ${
           scroll && "fixed rounded-none top-[-20px] max-w-full"
         }`}
       >

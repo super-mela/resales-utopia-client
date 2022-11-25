@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CategoriesCard = () => {
   return (
@@ -14,7 +15,9 @@ const CategoriesCard = () => {
         <h2 className="card-title">Camera</h2>
         <p>Click the button to listen on Spotiwhy app.</p>
         <div className="card-actions justify-end">
-          <button className="btn-primary w-[80%] mx-auto p-2">View All</button>
+          <Link to={"/products"} className="btn-primary w-[80%] mx-auto p-2">
+            View All
+          </Link>
         </div>
       </div>
     </div>

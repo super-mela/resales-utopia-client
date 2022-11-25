@@ -8,21 +8,37 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import bg from "../../../../assets/line-red.svg";
 import Title from "../../../../components/Title/Title";
 import CategoriesCard from "../CategoriesCard/CategoriesCard";
+import "./Categories.css";
 
 SwiperCore.use([Pagination, Navigation]);
 
 const Categories = () => {
   return (
     <div
-      className="bg-no-repeat max-w-[1290px] mx-auto bg-top my-10"
+      className="bg-no-repeat max-w-[1290px] mx-auto bg-top my-10 font-urbanist"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <Title>Shop By Categories</Title>
 
-      <div className="my-5">
+      <div className="my-5 swiper-container">
         <Swiper
+          breakpoints={{
+            // when window width is >= 640px
+            640: {
+              width: 640,
+              slidesPerView: 1,
+            },
+            // when window width is >= 768px
+            768: {
+              width: 768,
+              slidesPerView: 2,
+            },
+            1280: {
+              width: 1290,
+              slidesPerView: 3,
+            },
+          }}
           spaceBetween={10}
-          slidesPerView={3}
           navigation={{
             prevEl: ".prev",
             nextEl: ".next",
