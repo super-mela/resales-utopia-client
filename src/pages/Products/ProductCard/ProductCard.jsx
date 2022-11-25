@@ -6,11 +6,57 @@ const ProductCard = () => {
       <figure>
         <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
       </figure>
+
       <div className="card-body">
-        <h2 className="card-title">Camera</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
-          <button className="btn-primary">Buy Now</button>
+        <div className="flex justify-between text-gray-500">
+          <p>Dabasish Das Joy</p>
+          <p className="text-right">4th Nov, 2022</p>
+        </div>
+        <div className="flex justify-between items-center">
+          <h2 className="card-title">Camera</h2>
+        </div>
+        <div>
+          <div className="flex justify-between">
+            <p>Buying Price: BDT 45000</p>
+            <p className="text-right">
+              Used <span>4</span> Years
+            </p>
+          </div>
+          <p>Sholokbohor, Chattogram, Bangladesh</p>
+          <p>Selling Price: BDT 45000</p>
+        </div>
+        <div className="card-actions justify-between items-center">
+          <div className="rating flex items-center ">
+            <input
+              type="radio"
+              name="rating-2"
+              className="mask mask-star-2  w-3 bg-orange-400"
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              className="mask mask-star-2  w-3 bg-orange-400"
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              className="mask mask-star-2  w-3 bg-orange-400"
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              className="mask mask-star-2  w-3 bg-orange-400"
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              className="mask mask-star-2  w-3 bg-orange-400"
+            />
+            <p>(4.5)</p>
+          </div>
+          <label htmlFor="booking-modal" className="btn-primary px-3 py-2">
+            Buy Now
+          </label>
         </div>
       </div>
     </div>

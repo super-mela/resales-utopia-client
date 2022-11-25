@@ -6,7 +6,7 @@ module.exports = {
       {
         resalesUtopia: {
           primary: "#EBA10F",
-          secondary: "#23212C",
+          secondary: "#333333",
           accent: "#001042",
           "resales-bg-primary": "#f6f6f6",
         },
