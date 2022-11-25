@@ -52,7 +52,7 @@ const Header = () => {
         <p>
           Get 50% discount offer <span className="text-primary">26 Days</span>
         </p>
-        <Link>Login</Link>
+        <Link to={"/login"}>Login</Link>
       </div>
       {/* main navigations */}
       <div

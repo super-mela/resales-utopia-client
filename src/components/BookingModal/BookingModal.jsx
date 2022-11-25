@@ -64,7 +64,7 @@ const BookingModal = () => {
             <input
               type="text"
               placeholder="Phone Number"
-              className="input input-bordered  w-full "
+              className="input input-bordered text-secondary w-full "
               {...register("phone", {
                 required: "Phone Number is required!",
               })}
@@ -86,7 +86,7 @@ const BookingModal = () => {
             <input
               type="text"
               placeholder="Meeting Location"
-              className="input input-bordered w-full "
+              className="input input-bordered w-full text-secondary"
               {...register("location", {
                 required: "Meeting Number is required!",
               })}
