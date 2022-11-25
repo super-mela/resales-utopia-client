@@ -1,0 +1,26 @@
+[
+  {
+    "categoryName": "Compact Cameras",
+    "img": "https://i1.adis.ws/i/canon/powershot-sx620-hs-bk-frt-800x800?w=800&h=800&fmt=jpg&fmt.options=interlaced&bg=rgb(236,237,237)"
+  },
+  {
+    "categoryName": "DSLR Cameras",
+    "img": "https://www.startech.com.bd/image/cache/catalog/camera/dslr-camera/canon/1500d/1500d-7-500x500.jpg"
+  },
+  {
+    "categoryName": "Mirrorless Cameras",
+    "img": "https://diamu.com.bd/wp-content/uploads/2022/11/Canon-EOS-RP-Mirrorless-Camera-with-24-105mm-Lens-4.jpg"
+  },
+  {
+    "categoryName": "Action or Adventure Cameras",
+    "img": "https://d1b5h9psu9yexj.cloudfront.net/35800/GoPro-Hero8-Black_20191122-163119_full.jpeg"
+  },
+  {
+    "categoryName": "360 Cameras",
+    "img": "https://multimediakingdom.com.bd/wp-content/uploads/Insta360-One-X.jpg"
+  },
+  {
+    "categoryName": "Traditional Film Cameras",
+    "img": "https://expertphotography.b-cdn.net/wp-content/uploads/2014/11/classic-film-cameras-canon-ae-1.jpg"
+  }
+]

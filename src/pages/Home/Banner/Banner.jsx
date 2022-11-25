@@ -4,7 +4,7 @@ import banner from "../../../assets/h5-logo2.png";
 const Banner = () => {
   return (
     <div
-      className="bg-cover min-h-screen bg-bottom flex flex-col items-start justify-center px-24 font-urbanist"
+      className="bg-cover bg-no-repeat min-h-screen bg-bottom flex flex-col items-start justify-center px-24 font-urbanist"
       style={{ backgroundImage: `url(${banner})` }}
     >
       <h1 className="font-bold text-[4.25em] text-white">
