@@ -4,10 +4,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white text-center px-5 py-3 font-bold text-[1rem] rounded-sm;
+    @apply px-5 py-3 w-36 font-urbanist font-semibold text-white text-[20px] rounded-sm;
+    background: linear-gradient(95.45deg, #0082f8 0.64%, #1c40f2 98.23%);
   }
   .btn-secondary {
-    @apply bg-secondary text-white px-5 py-3  text-center font-bold text-[1rem] rounded-sm;
+    @apply px-5 py-3 w-36 font-urbanist font-semibold text-white bg-transparent border-2 border-white text-[20px] rounded-sm hover:bg-primary;
   }
 }
 

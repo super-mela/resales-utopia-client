@@ -5,10 +5,12 @@ module.exports = {
     themes: [
       {
         resalesUtopia: {
-          primary: "#EBA10F",
-          secondary: "#333333",
-          accent: "#001042",
-          "resales-bg-primary": "#f6f6f6",
+          primary: "#1c40f2",
+          secondary: "#0082F8",
+
+          accent: "#ffb800",
+
+          neutral: "#001042",
         },
       },
     ],
