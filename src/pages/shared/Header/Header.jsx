@@ -31,7 +31,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to={"/myorders"} className="border-b">
+            <Link to={"/addproduct"} className="border-b">
               Add A Product
             </Link>
           </li>

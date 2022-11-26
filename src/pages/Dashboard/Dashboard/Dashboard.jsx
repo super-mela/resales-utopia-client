@@ -1,5 +1,5 @@
 import React from "react";
-import TopBanner from "../../components/TopBanner/TopBanner";
+import TopBanner from "../../../components/TopBanner/TopBanner";
 
 const Dashboard = () => {
   return (
