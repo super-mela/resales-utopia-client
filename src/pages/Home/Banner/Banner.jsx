@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../../assets/h5-logo2.png";
+import banner from "../../../assets/h5-logo1.png";
 
 const Banner = () => {
   return (
@@ -11,9 +11,8 @@ const Banner = () => {
         Beautiful <br /> <span className="text-accent">Moments</span> for you
       </h1>
       <div className="flex gap-5 mt-5">
-        <button className="btn-secondary">Explore More</button>
-
         <button className="btn-primary">Shop Now</button>
+        <button className="btn-secondary">Explore More</button>
       </div>
     </div>
   );

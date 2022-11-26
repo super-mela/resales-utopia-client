@@ -14,9 +14,9 @@ const Header = () => {
 
   // ActiveStyle
   const activeClassName =
-    "text-primary bg-transparent border-b-2 lg:border-b-primary border-none";
+    "text-primary flex items-center gap-1 bg-transparent border-b-2 lg:border-b-primary border-none";
   const inActiveClassName =
-    "hover:text-primary hover:bg-transparent text-neutral";
+    "hover:text-primary flex items-center gap-1 hover:bg-transparent text-neutral";
 
   const menuItems = (
     <>
