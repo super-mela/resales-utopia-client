@@ -13,7 +13,7 @@ const Products = () => {
           <div className="flex border text-gray-500 justify-between items-center py-0 px-2 rounded-sm">
             {/* Categories */}
             <div>
-              <select className="w-full max-w-xs outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
+              <select className="w-full  outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
                 <option disabled selected>
                   All Categories
                 </option>
@@ -27,7 +27,7 @@ const Products = () => {
             <p>15 products found on Category. </p>
             {/* Sort */}
             <div>
-              <select className="w-full max-w-xs outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
+              <select className="w-full  outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
                 <option disabled selected>
                   Sort By
                 </option>

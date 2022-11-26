@@ -36,7 +36,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to={"/myorders"} className="border-b">
+            <Link to={"/myproducts"} className="border-b">
               My Products
             </Link>
           </li>
