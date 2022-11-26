@@ -6,17 +6,20 @@ import Banner from "../Banner/Banner";
 import Categories from "../Categories/Categories/Categories";
 
 const Home = () => {
-  const categories = useLoaderData();
+  const categoriesData = useLoaderData();
   const navigation = useNavigation();
 
-  return (
-    <div>
-      <Banner></Banner>
-      {navigation.state === "loading" && <Preloader></Preloader>}
-      <Advertise></Advertise>
-      <Categories></Categories>
-    </div>
-  );
+  if (navigation.state === "loading") {
+    return <Preloader></Preloader>;
+  } else {
+    return (
+      <div>
+        <Banner></Banner>
+        <Advertise></Advertise>
+        <Categories categoriesData={categoriesData}></Categories>
+      </div>
+    );
+  }
 };
 
 export default Home;

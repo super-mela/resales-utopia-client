@@ -2,6 +2,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
+import banner from "../../../assets/banner-slide3.png";
 import TopBanner from "../../../components/TopBanner/TopBanner";
 import ValidationError from "../../shared/ValidationError/ValidationError";
 
@@ -24,16 +25,19 @@ const AddProduct = () => {
 
       {/* form */}
 
-      <section className="p-6 font-urbanist text-secondary">
+      <section className="lg:px-24 py-10 font-urbanist text-neutral bg-base-100">
         <form
           onSubmit={handleSubmit(handleAddProduct)}
-          className="container flex flex-col mx-auto space-y-12 py-5 border rounded-sm ng-untouched ng-pristine ng-valid"
+          className="container flex flex-col mx-auto  py-5 rounded-sm ng-untouched ng-pristine ng-valid bg-white"
         >
-          <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">
+          <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md">
             {/* Header */}
             <div className="space-y-2 col-span-full lg:col-span-1">
               <p className="font-medium text-2xl">Product Inormation</p>
-              <p className="text-xs">Add product</p>
+              <p className="text-xs">
+                Add product information to create a product
+              </p>
+              <img src={banner} alt="" />
             </div>
 
             {/* Form */}
@@ -227,8 +231,8 @@ const AddProduct = () => {
               </div>
             </div>
           </fieldset>
-          <div className="flex justify-center w-full">
-            <button className="btn-secondary">Create</button>
+          <div className="flex justify-center mt-5">
+            <button className="btn-primary">Create</button>
           </div>
         </form>
       </section>

@@ -10,7 +10,11 @@ import "./CategoriesSwipper.css";
 
 SwiperCore.use([Pagination, Navigation]);
 
-const CategoriesSwipper = () => {
+const CategoriesSwipper = ({
+  categoriesData: {
+    data: { result: categories },
+  },
+}) => {
   return (
     <div className="my-5 swiper-container">
       <Swiper
@@ -30,32 +34,21 @@ const CategoriesSwipper = () => {
             slidesPerView: 3,
           },
         }}
-        spaceBetween={10}
+        spaceBetween={5}
         navigation={{
           prevEl: ".prev",
           nextEl: ".next",
         }}
         className="categoriesSwipper"
       >
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CategoriesCard></CategoriesCard>
-        </SwiperSlide>
+        {categories.map((category) => (
+          <SwiperSlide key={category._id}>
+            <CategoriesCard category={category}></CategoriesCard>
+          </SwiperSlide>
+        ))}
       </Swiper>
+
+      {/* navigation */}
       <div className="text-white flex justify-center gap-2 items-center mt-5">
         <button className="prev bg-primary p-1 text-center rounded-full hover:bg-info hover:text-primary">
           <FaAngleLeft className="text-3xl"></FaAngleLeft>

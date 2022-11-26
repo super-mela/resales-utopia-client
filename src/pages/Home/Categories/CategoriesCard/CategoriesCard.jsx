@@ -1,23 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CategoriesCard = () => {
+const CategoriesCard = ({ category: { categoryName, desc, img, _id } }) => {
   return (
-    <div className="text-neutral font-urbanist card card-side bg-white rounded-sm gap-1 border w-[400px] h-[250px]">
-      <figure className="">
+    <div className="text-neutral font-urbanist grid grid-cols-5 bg-white rounded-sm gap-1 border w-[420px] h-[250px]">
+      <figure className="col-span-2">
         <img
-          src="https://placeimg.com/400/400/arch"
+          src={img}
           alt="Album"
-          className="h-full w-[400px]"
+          className="h-full w-full object-scale-down border-r p-2"
         />
       </figure>
-      <div className="card-body p-2">
-        <h2 className="card-title">Camera</h2>
-        <p className="font-mulish text-gray-500">
-          Click the button to listen on Spotiwhy app.
-        </p>
-        <div className="card-actions justify-end">
-          <Link to={"/products"} className="btn-action">
+      <div className="flex flex-col justify-between p-2 col-span-3">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-[20px] font-bold leading-6">{categoryName}</h2>
+          <p className="font-mulish text-gray-500 text-xs">{desc}</p>
+        </div>
+        <div className="flex justify-center">
+          <Link to={`/products/${_id}`} className="btn-action mx-auto">
             View All
           </Link>
         </div>

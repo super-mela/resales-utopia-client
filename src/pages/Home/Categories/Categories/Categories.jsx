@@ -5,7 +5,7 @@ import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import Title from "../../../../components/Title/Title";
 import CategoriesSwipper from "../CategoriesSwipper/CategoriesSwipper";
 
-const Categories = () => {
+const Categories = ({ categoriesData }) => {
   return (
     <section
       className="bg-no-repeat bg-right-bottom  px-24 mx-auto my-10 font-urbanist"
@@ -13,7 +13,7 @@ const Categories = () => {
     >
       <SectionTitle>We Have Perfect Match For You</SectionTitle>
       <Title>Shop By Categories</Title>
-      <CategoriesSwipper></CategoriesSwipper>
+      <CategoriesSwipper categoriesData={categoriesData}></CategoriesSwipper>
     </section>
   );
 };
