@@ -10,14 +10,6 @@ const MyBuyers = () => {
           <h2 className="mb-4 text-2xl font-semibold leading-tight">Buyers</h2>
           <div className="overflow-x-auto border">
             <table className="min-w-full text-xs">
-              {/* <colgroup>
-				<col>
-				<col>
-				<col>
-				<col>
-				<col>
-				<col className="w-24">
-			</colgroup> */}
               <thead className="bg-secondary text-white">
                 <tr className="text-left">
                   <th className="p-3">Invoice</th>

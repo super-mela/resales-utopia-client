@@ -46,17 +46,17 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to={"/myorders"} className="border-b">
+            <Link to={"/allsellers"} className="border-b">
               All Sellers
             </Link>
           </li>
           <li>
-            <Link to={"/myorders"} className="border-b">
+            <Link to={"/allbuyers"} className="border-b">
               All Buyers
             </Link>
           </li>
           <li>
-            <Link to={"/myorders"} className="border-b">
+            <Link to={"/reportedItems"} className="border-b">
               Reported Items
             </Link>
           </li>
