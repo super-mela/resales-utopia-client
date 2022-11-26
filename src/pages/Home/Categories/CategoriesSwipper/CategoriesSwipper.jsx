@@ -56,11 +56,11 @@ const CategoriesSwipper = () => {
           <CategoriesCard></CategoriesCard>
         </SwiperSlide>
       </Swiper>
-      <div className="text-secondary flex justify-center gap-2 items-center mt-5">
-        <button className="prev">
+      <div className="text-white flex justify-center gap-2 items-center mt-5">
+        <button className="prev bg-primary p-1 text-center rounded-full hover:bg-info hover:text-primary">
           <FaAngleLeft className="text-3xl"></FaAngleLeft>
         </button>
-        <button className="next">
+        <button className="next bg-primary p-1 text-center rounded-full hover:bg-info hover:text-primary">
           <FaAngleRight className="text-3xl"></FaAngleRight>
         </button>
       </div>

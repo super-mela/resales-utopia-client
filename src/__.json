@@ -1,26 +1,32 @@
 [
   {
     "categoryName": "Compact Cameras",
-    "img": "https://i1.adis.ws/i/canon/powershot-sx620-hs-bk-frt-800x800?w=800&h=800&fmt=jpg&fmt.options=interlaced&bg=rgb(236,237,237)"
+    "img": "https://i1.adis.ws/i/canon/powershot-sx620-hs-bk-frt-800x800?w=800&h=800&fmt=jpg&fmt.options=interlaced&bg=rgb(236,237,237)",
+    "desc": "These are the best compact cameras you can get right now, and we've tried them all - get 'big camera' quality in your pocket! "
   },
   {
     "categoryName": "DSLR Cameras",
-    "img": "https://www.startech.com.bd/image/cache/catalog/camera/dslr-camera/canon/1500d/1500d-7-500x500.jpg"
+    "img": "https://www.startech.com.bd/image/cache/catalog/camera/dslr-camera/canon/1500d/1500d-7-500x500.jpg",
+    "desc": "Discover a wide range of DSLR Cameras including Canon, Nikon, Sony at best price in Bangladesh."
   },
   {
     "categoryName": "Mirrorless Cameras",
-    "img": "https://diamu.com.bd/wp-content/uploads/2022/11/Canon-EOS-RP-Mirrorless-Camera-with-24-105mm-Lens-4.jpg"
+    "img": "https://diamu.com.bd/wp-content/uploads/2022/11/Canon-EOS-RP-Mirrorless-Camera-with-24-105mm-Lens-4.jpg",
+    "desc": "Buy and learn about Mirrorless Cameras from top brands like Sony, Panasonic, Fujifilm, Olympus, Nikon and Canon. Incredible prices and service"
   },
   {
     "categoryName": "Action or Adventure Cameras",
-    "img": "https://d1b5h9psu9yexj.cloudfront.net/35800/GoPro-Hero8-Black_20191122-163119_full.jpeg"
+    "img": "https://d1b5h9psu9yexj.cloudfront.net/35800/GoPro-Hero8-Black_20191122-163119_full.jpeg",
+    "desc": "Action cameras are portable cameras that can be used to record HD videos in real-time."
   },
   {
     "categoryName": "360 Cameras",
-    "img": "https://multimediakingdom.com.bd/wp-content/uploads/Insta360-One-X.jpg"
+    "img": "https://multimediakingdom.com.bd/wp-content/uploads/Insta360-One-X.jpg",
+    "desc": "The best 360 cameras have dropped massively in price, are fun to use and create amazing content for social media"
   },
   {
     "categoryName": "Traditional Film Cameras",
-    "img": "https://expertphotography.b-cdn.net/wp-content/uploads/2014/11/classic-film-cameras-canon-ae-1.jpg"
+    "img": "https://expertphotography.b-cdn.net/wp-content/uploads/2014/11/classic-film-cameras-canon-ae-1.jpg",
+    "desc": "We pick the best film cameras from the past few decades, and not just museum pieces but practical classics you can use today"
   }
 ]

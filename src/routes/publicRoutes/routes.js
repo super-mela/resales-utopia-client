@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import Blog from "../../pages/Blog/Blog";
@@ -22,6 +23,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        loader: () => {
+          return axios.get(
+            "https://resales-utopia-server.vercel.app/categories"
+          );
+        },
         element: <Home></Home>,
       },
       {
