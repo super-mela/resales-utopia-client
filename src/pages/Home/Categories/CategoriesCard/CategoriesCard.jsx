@@ -13,7 +13,7 @@ const CategoriesCard = ({ category: { categoryName, desc, img, _id } }) => {
       </figure>
       <div className="flex flex-col justify-between p-2 col-span-3">
         <div className="flex flex-col gap-2">
-          <h2 className="text-[20px] font-bold leading-6">{categoryName}</h2>
+          <h2 className="text-[22px] font-bold leading-6">{categoryName}</h2>
           <p className="font-mulish text-gray-500 text-xs">{desc}</p>
         </div>
         <div className="flex justify-center">

@@ -1,7 +1,8 @@
 import { ErrorMessage } from "@hookform/error-message";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import {
   AiOutlineEye,
   AiOutlineMail,
@@ -10,11 +11,14 @@ import {
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import TopBanner from "../../components/TopBanner/TopBanner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const formData = new FormData();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const [userData, setUserData] = useState({});
 
   const {
     register,
@@ -26,19 +30,49 @@ const Register = () => {
 
   const handleRegister = (data) => {
     // test
-    console.log(data.userType);
-    console.log(data.photoUrl[0]);
+    console.log(data);
+
     formData.append("image", data.photoUrl[0]);
     // Image upload
     axios({
       method: "post",
       url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
       data: formData,
-    }).then((res) => {
-      if (res.data.success) {
-        console.log(res.data.data.url);
-      }
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Image upload successful");
+
+          /* set User profile to state to access from another context */
+          const imageUrl = res.data.data.url;
+          setUserData({
+            displayName: data.name,
+            photoURL: imageUrl,
+          });
+
+          signupUser(data.email, data.password);
+          // createUser;
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
+  /* create User */
+  const signupUser = (email, password) => {
+    createUser(email, password)
+      .then((res) => {
+        // updateUser
+        updateUserProfile(userData)
+          .then((res) => {
+            toast.success("Account created successful!");
+          })
+          .catch((err) => toast.error(err));
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   return (
@@ -47,11 +81,13 @@ const Register = () => {
       <TopBanner>Account</TopBanner>
 
       {/* Register form */}
-      <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
-        <h1 className="text-2xl font-bold text-center">Sign Up</h1>
+      <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary bg-white">
+        <h1 className="text-2xl font-bold text-center mb-5">
+          Sign Up into Your Account
+        </h1>
         <form
           onSubmit={handleSubmit(handleRegister)}
-          className="space-y-6 ng-untouched ng-pristine ng-valid"
+          className="space-y-3 ng-untouched ng-pristine ng-valid"
         >
           {/* name */}
           <div className="space-y-1 text-sm">
@@ -85,7 +121,7 @@ const Register = () => {
           {/* photourl */}
           <div className="space-y-1 text-sm">
             <label htmlFor="username" className="block ">
-              Your Photo Url
+              Photo
             </label>
             <input
               type="file"
@@ -120,7 +156,7 @@ const Register = () => {
               <AiOutlineMail />
               <input
                 type="email"
-                placeholder="Username"
+                placeholder="Email"
                 className="w-full focus:outline-none"
                 {...register("email", {
                   required: "Email is required!",
@@ -218,15 +254,10 @@ const Register = () => {
                   : null;
               }}
             />
-            <div className="flex justify-end text-xs text-secondary">
-              <Link rel="noopener noreferrer" to="/reset">
-                Forgot Password?
-              </Link>
-            </div>
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-secondary text-white"
+            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
           >
             Sign Up
           </button>
@@ -234,7 +265,7 @@ const Register = () => {
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
           <p className="px-3 text-sm text-textPrimary">
-            Sign up with social accounts
+            Or Sign up with social accounts
           </p>
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
         </div>

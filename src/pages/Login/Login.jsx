@@ -24,12 +24,15 @@ const Login = () => {
   const handleLogin = () => {};
 
   return (
-    <div className="text-secondary font-urbanist">
+    <div className="text-neutral font-urbanist">
       {/* Cover */}
       <TopBanner>Account</TopBanner>
+
       {/* Login form */}
-      <div className="w-full max-w-md p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
-        <h1 className="text-2xl font-bold text-center">Sign In</h1>
+      <div className="w-full max-w-md bg-white p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary">
+        <h1 className="text-2xl font-bold text-center">
+          Sign In to Your Account
+        </h1>
         <form
           onSubmit={handleSubmit(handleLogin)}
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -123,7 +126,7 @@ const Login = () => {
                   : null;
               }}
             />
-            <div className="flex justify-end text-xs text-secondary">
+            <div className="flex justify-end text-xs text-neutral">
               <Link rel="noopener noreferrer" to="/reset">
                 Forgot Password?
               </Link>
@@ -131,7 +134,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-secondary text-white"
+            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
           >
             Sign in
           </button>
