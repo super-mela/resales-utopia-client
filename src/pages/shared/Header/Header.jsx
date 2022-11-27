@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
@@ -42,54 +44,56 @@ const Header = () => {
           Home
         </NavLink>
       </li>
-      <li tabIndex={0}>
-        <NavLink
-          to={"/dashboard"}
-          className={({ isActive }) =>
-            isActive ? activeClassName : inActiveClassName
-          }
-        >
-          Dashboard
-          <AiOutlineCaretDown />
-        </NavLink>
-        <ul className="p-2 bg-white">
-          <li>
-            <Link to={"/myorders"} className="border-b">
-              My Order
-            </Link>
-          </li>
-          <li>
-            <Link to={"/addproduct"} className="border-b">
-              Add A Product
-            </Link>
-          </li>
-          <li>
-            <Link to={"/myproducts"} className="border-b">
-              My Products
-            </Link>
-          </li>
-          <li>
-            <Link to={"/mybuyers"} className="border-b">
-              My Buyers
-            </Link>
-          </li>
-          <li>
-            <Link to={"/allsellers"} className="border-b">
-              All Sellers
-            </Link>
-          </li>
-          <li>
-            <Link to={"/allbuyers"} className="border-b">
-              All Buyers
-            </Link>
-          </li>
-          <li>
-            <Link to={"/reportedItems"} className="border-b">
-              Reported Items
-            </Link>
-          </li>
-        </ul>
-      </li>
+      {user && user?.uid && (
+        <li tabIndex={0}>
+          <NavLink
+            to={"/dashboard"}
+            className={({ isActive }) =>
+              isActive ? activeClassName : inActiveClassName
+            }
+          >
+            Dashboard
+            <AiOutlineCaretDown />
+          </NavLink>
+          <ul className="p-2 bg-white">
+            <li>
+              <Link to={"/myorders"} className="border-b">
+                My Order
+              </Link>
+            </li>
+            <li>
+              <Link to={"/addproduct"} className="border-b">
+                Add A Product
+              </Link>
+            </li>
+            <li>
+              <Link to={"/myproducts"} className="border-b">
+                My Products
+              </Link>
+            </li>
+            <li>
+              <Link to={"/mybuyers"} className="border-b">
+                My Buyers
+              </Link>
+            </li>
+            <li>
+              <Link to={"/allsellers"} className="border-b">
+                All Sellers
+              </Link>
+            </li>
+            <li>
+              <Link to={"/allbuyers"} className="border-b">
+                All Buyers
+              </Link>
+            </li>
+            <li>
+              <Link to={"/reportedItems"} className="border-b">
+                Reported Items
+              </Link>
+            </li>
+          </ul>
+        </li>
+      )}
 
       <li>
         <NavLink
@@ -111,24 +115,31 @@ const Header = () => {
           Get 50% discount offer <span className="text-accent">26 Days</span>
         </p>
         <div className="flex gap-4 items-center">
+          {/* Profile Image */}
           <div className="avatar">
             <div className="w-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img src="https://placeimg.com/192/192/people" alt="profile" />
+              {user?.photoURL ? (
+                <img src={user?.photoURL} alt="profile" />
+              ) : (
+                <FaUserCircle className="w-full h-full" />
+              )}
             </div>
           </div>
 
           {user && user?.uid ? (
             <button
               onClick={handleLogout}
-              className="font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
+              className="flex gap-1 items-center font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
             >
+              <BiLogOut />
               Log out
             </button>
           ) : (
             <Link
               to={"/login"}
-              className="font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
+              className="flex gap-1 items-center font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
             >
+              <BiLogIn />
               Login
             </Link>
           )}
