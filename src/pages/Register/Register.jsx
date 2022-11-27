@@ -12,13 +12,20 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import useJwtToken from "../../hooks/useToken/useJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const formData = new FormData();
   const { createUser, updateUserProfile } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  const [userEmail, setUserEmail] = useState("");
+
+  const [token] = useJwtToken(userEmail);
+
+  if (token) {
+    toast.success("Profile created successfully token");
+  }
 
   const {
     register,
@@ -29,10 +36,7 @@ const Register = () => {
   });
 
   const handleRegister = (data) => {
-    // test
-    console.log(data);
-
-    formData.append("image", data.photoUrl[0]);
+    formData.append("image", data?.photoUrl[0]);
     // Image upload
     axios({
       method: "post",
@@ -40,18 +44,18 @@ const Register = () => {
       data: formData,
     })
       .then((res) => {
-        if (res.data.success) {
-          toast.success("Image upload successful");
-
+        if (res?.data?.success) {
           /* set User profile to state to access from another context */
-          const imageUrl = res.data.data.url;
-          setUserData({
-            displayName: data.name,
-            photoURL: imageUrl,
-          });
+          const user = {
+            name: data.name,
+            email: data.email,
+            userType: data.userType,
+            photoURL: res.data.data.url,
+            password: data.password,
+          };
 
-          signupUser(data.email, data.password);
           // createUser;
+          signupUser(user);
         }
       })
       .catch((err) => {
@@ -60,15 +64,31 @@ const Register = () => {
   };
 
   /* create User */
-  const signupUser = (email, password) => {
-    createUser(email, password)
+  const signupUser = async (user) => {
+    createUser(user.email, user.password)
       .then((res) => {
         // updateUser
-        updateUserProfile(userData)
+        updateUserProfile(user.name, user.photoURL)
           .then((res) => {
-            toast.success("Account created successful!");
+            // save in the database
+            saveUser(user);
           })
           .catch((err) => toast.error(err));
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
+  // save user in the database
+  const saveUser = (user) => {
+    axios
+      .post("https://resales-utopia-server.vercel.app/users", {
+        email: user.email,
+        userType: user.userType,
+      })
+      .then((res) => {
+        setUserEmail(user.email);
       })
       .catch((err) => {
         toast.error(err);
