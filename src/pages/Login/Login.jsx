@@ -1,18 +1,33 @@
 import { ErrorMessage } from "@hookform/error-message";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import {
   AiOutlineEye,
   AiOutlineMail,
   AiTwotoneEyeInvisible,
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import useJwtToken from "../../hooks/useToken/useJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(false);
+  const { login } = useContext(AuthContext);
+  const [userEmail, setUserEmail] = useState("");
+
+  const [token] = useJwtToken(userEmail);
+
+  const [loginLoading, setLoginLoading] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     formState: { errors },
@@ -21,7 +36,19 @@ const Login = () => {
     criteriaMode: "all",
   });
 
-  const handleLogin = () => {};
+  const handleLogin = (data) => {
+    setLoginLoading(true);
+    login(data.email, data.password)
+      .then((res) => {
+        setUserEmail(data.email);
+        navigate(from, { replace: true });
+        toast.success("Successfully Loggged In");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+    setLoginLoading(false);
+  };
 
   return (
     <div className="text-neutral font-urbanist">
@@ -134,9 +161,11 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
+            className="flex justify-center items-center gap-1 w-full p-3 text-center rounded-sm  bg-primary text-white disabled:bg-gray-500"
+            disabled={loginLoading}
           >
             Sign in
+            {loginLoading && <LoginLoader />}
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">

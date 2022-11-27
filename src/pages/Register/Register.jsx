@@ -9,7 +9,8 @@ import {
   AiTwotoneEyeInvisible,
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import useJwtToken from "../../hooks/useToken/useJwtToken";
@@ -18,14 +19,13 @@ import ValidationError from "../shared/ValidationError/ValidationError";
 const Register = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const formData = new FormData();
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, googleLogin } =
+    useContext(AuthContext);
   const [userEmail, setUserEmail] = useState("");
+  const [signUploading, setSignUpLoading] = useState(false);
 
   const [token] = useJwtToken(userEmail);
-
-  if (token) {
-    toast.success("Profile created successfully token");
-  }
+  const navigate = useNavigate();
 
   const {
     register,
@@ -35,7 +35,23 @@ const Register = () => {
     criteriaMode: "all",
   });
 
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
+        // saveUser in database
+        const user = {
+          name: res.user.displayName,
+          email: res.user.email,
+          userType: "Buyer",
+        };
+
+        saveUser(user);
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
   const handleRegister = (data) => {
+    setSignUpLoading(true);
     formData.append("image", data?.photoUrl[0]);
     // Image upload
     axios({
@@ -56,15 +72,18 @@ const Register = () => {
 
           // createUser;
           signupUser(user);
+        } else {
+          toast.error("Failed to upload picture");
         }
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error(err.message);
+        setSignUpLoading(false);
       });
   };
 
   /* create User */
-  const signupUser = async (user) => {
+  const signupUser = (user) => {
     createUser(user.email, user.password)
       .then((res) => {
         // updateUser
@@ -73,10 +92,14 @@ const Register = () => {
             // save in the database
             saveUser(user);
           })
-          .catch((err) => toast.error(err));
+          .catch((err) => {
+            toast.error(err.message);
+            setSignUpLoading(false);
+          });
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error(err.message);
+        setSignUpLoading(false);
       });
   };
 
@@ -84,15 +107,20 @@ const Register = () => {
   const saveUser = (user) => {
     axios
       .post("https://resales-utopia-server.vercel.app/users", {
+        name: user.name,
         email: user.email,
         userType: user.userType,
       })
       .then((res) => {
         setUserEmail(user.email);
+        if (token) {
+          toast.success("Your account is successfully created");
+        }
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error(err.response.data.message || err.message);
       });
+    setSignUpLoading(false);
   };
 
   return (
@@ -202,8 +230,8 @@ const Register = () => {
               }}
             />
           </div>
-          {/* User Type */}
 
+          {/* User Type */}
           <div className="space-y-1 text-sm">
             <label htmlFor="username" className="block ">
               User Type
@@ -277,9 +305,10 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="block w-full p-3 text-center rounded-sm  bg-primary text-white"
+            className="w-full p-3 text-center rounded-sm  bg-primary text-white flex justify-center gap-2 items-center disabled:bg-gray-700"
+            disabled={signUploading}
           >
-            Sign Up
+            Sign Up {signUploading && <LoginLoader></LoginLoader>}
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">
@@ -290,7 +319,12 @@ const Register = () => {
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          {/* google Login Button */}
+          <button
+            onClick={handleGoogleLogin}
+            aria-label="Log in with Google"
+            className="p-3 rounded-sm"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"

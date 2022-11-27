@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Header = () => {
   // Navbar Scroll Effect
   const [scroll, setScroll] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout().then((res) => {
+      localStorage.removeItem("accessToken");
+      toast.success("See you again!");
+    });
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.scrollY > 50);
@@ -106,12 +117,21 @@ const Header = () => {
             </div>
           </div>
 
-          <Link
-            to={"/login"}
-            className="font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
-          >
-            Login
-          </Link>
+          {user && user?.uid ? (
+            <button
+              onClick={handleLogout}
+              className="font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
+            >
+              Log out
+            </button>
+          ) : (
+            <Link
+              to={"/login"}
+              className="font-semibold leading-[21px] border-l-2 px-2 border-l-primary uppercase"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
       {/* top navigation end */}
