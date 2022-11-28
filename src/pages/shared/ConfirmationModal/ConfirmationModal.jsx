@@ -9,7 +9,7 @@ const ConfirmationModal = ({ data, handleCloseModal, handleDeleteData }) => {
         <div className="modal-box relative">
           <label
             htmlFor="confirmation-modal"
-            className="btn btn-sm bg-accent btn-circle absolute right-2 top-2"
+            className="btn btn-sm bg-primary btn-circle absolute right-2 top-2"
             onClick={handleCloseModal}
           >
             ✕
@@ -23,7 +23,7 @@ const ConfirmationModal = ({ data, handleCloseModal, handleDeleteData }) => {
           </p>
           <div className="flex justify-center">
             <button
-              className="btn-primary btn text-white"
+              className="btn-action hover:bg-accent hover:text-white "
               onClick={() => handleDeleteData(data)}
             >
               Yes

@@ -64,7 +64,7 @@ const Products = () => {
           {/* top bar end*/}
 
           {/* products */}
-          <div className="grid grid-cols-3 gap-10 my-10">
+          <div className="grid grid-cols-4 gap-5 my-10">
             {products?.map((product) => (
               <ProductCard key={product._id} product={product}></ProductCard>
             ))}
