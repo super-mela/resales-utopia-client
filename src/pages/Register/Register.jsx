@@ -13,7 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import { getJwtToken } from "../../utils/SaveUser/GetJwtToken/GetJwtToken";
+import useJwtToken from "../../hooks/useToken/useJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
@@ -23,11 +23,12 @@ const Register = () => {
     useContext(AuthContext);
 
   const [signUploading, setSignUpLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = useJwtToken(userEmail);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const [userEmail, setUserEmail] = useState("");
 
   const {
     register,
@@ -46,7 +47,6 @@ const Register = () => {
           email: res.user.email,
           userType: "Buyer",
         };
-
         saveUser(user);
       })
       .catch((err) => {
@@ -67,7 +67,7 @@ const Register = () => {
       .then((res) => {
         if (res?.data?.success) {
           /* set User profile to state to access from another context */
-          const user = {
+          const userData = {
             name: data.name,
             email: data.email,
             userType: data.userType,
@@ -76,32 +76,28 @@ const Register = () => {
           };
 
           // createUser;
-          signupUser(user);
+          signupUser(userData);
         } else {
           toast.error("Failed to upload picture");
-          return;
         }
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.error(err);
         setSignUpLoading(false);
-        return;
       });
   };
 
   /* create User */
-  const signupUser = (user) => {
-    createUser(user.email, user.password)
+  const signupUser = (userData) => {
+    createUser(userData.email, userData.password)
       .then((res) => {
-        // updateUser
-        saveUser(user);
-        updateUserProfile(user.name, user.photoURL)
-          .then((res) => {})
-          .catch((err) => {
-            toast.error(err.message);
-            setSignUpLoading(false);
-            return;
-          });
+        // update user
+        updateUserProfile(userData.name, userData.photoURL)
+          .then(() => {
+            toast.success("Profile Updated");
+            saveUser(userData);
+          })
+          .catch((err) => console.error(err));
       })
       .catch((err) => {
         toast.error(err.message);
@@ -111,22 +107,23 @@ const Register = () => {
   };
 
   // save user in the database
-  const saveUser = (user) => {
+  const saveUser = (userData) => {
+    console.log(userData);
+    const { password, ...rest } = userData;
+
     axios
-      .post("https://resales-utopia-server.vercel.app/users", {
-        name: user.name,
-        email: user.email,
-        userType: user.userType,
-      })
+      .post("https://resales-utopia-server.vercel.app/users", rest)
       .then((res) => {
-        getJwtToken(user.email);
-        toast.success("Successfully created account");
-        navigate("/");
+        if (res.data.result.acknowledged) {
+          toast.success("User Created");
+          setUserEmail(userData.email);
+
+          toast.success("Successfully Logged In");
+          navigate(from, { replace: true });
+          setUserEmail("");
+        }
       })
-      .catch((err) => {
-        toast.error(err.response.data.message || err.message);
-        return;
-      });
+      .catch((err) => console.error(err));
     setSignUpLoading(false);
   };
 

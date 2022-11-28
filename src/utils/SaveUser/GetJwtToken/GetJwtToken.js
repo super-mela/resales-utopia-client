@@ -6,6 +6,7 @@ export const getJwtToken = (email) => {
     axios
       .get(`https://resales-utopia-server.vercel.app/jwt?email=${email}`)
       .then((res) => {
+        console.log(res);
         if (res.data.token) {
           const token = res.data.token;
           localStorage.setItem("accessToken", token);

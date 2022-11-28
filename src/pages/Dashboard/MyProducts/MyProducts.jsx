@@ -27,7 +27,7 @@ const MyProducts = () => {
   };
   // load products
   const {
-    data: { products },
+    data: { products } = [],
     isLoading,
     refetch,
   } = useQuery({
@@ -52,13 +52,17 @@ const MyProducts = () => {
       <TopBanner>My Products</TopBanner>
 
       <div className="lg:px-24 py-10 grid lg:grid-cols-2 grid-cols-1 gap-10">
-        {products.map((product) => (
-          <MyProductsCard
-            key={product._id}
-            product={product}
-            setDeleteProduct={setDeleteProduct}
-          ></MyProductsCard>
-        ))}
+        {products.length ? (
+          products.map((product) => (
+            <MyProductsCard
+              key={product._id}
+              product={product}
+              setDeleteProduct={setDeleteProduct}
+            ></MyProductsCard>
+          ))
+        ) : (
+          <h1>No proudcts to show</h1>
+        )}
       </div>
       {deleteProduct && (
         <ConfirmationModal

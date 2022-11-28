@@ -19,11 +19,10 @@ import ValidationError from "../shared/ValidationError/ValidationError";
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const { login, googleLogin } = useContext(AuthContext);
-  const [userEmail, setUserEmail] = useState("");
-
-  const [token] = useJwtToken(userEmail);
-
   const [loginLoading, setLoginLoading] = useState(false);
+
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = useJwtToken(userEmail);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,28 +40,19 @@ const Login = () => {
     setLoginLoading(true);
     googleLogin()
       .then((res) => {
+        // saveUser in database
+        setUserEmail(res.user.email);
         const user = {
-          name: res.user.name,
+          name: res.user.displayName,
           email: res.user.email,
           userType: "Buyer",
         };
         saveUser(user);
       })
-      .catch((err) => toast.error(err.message));
-
-    setLoginLoading(false);
-  };
-
-  const saveUser = (user) => {
-    axios
-      .post("https://resales-utopia-server.vercel.app/users", user)
-      .then((res) => {
-        setUserEmail(user.email);
-        toast.success("Successfully Logged In");
-        navigate(from, { replace: true });
-      })
       .catch((err) => {
-        toast.error(err.response.data.message || err.message);
+        toast.error(err.message);
+        setLoginLoading(false);
+        return;
       });
   };
 
@@ -72,12 +62,33 @@ const Login = () => {
       .then((res) => {
         setUserEmail(data.email);
         navigate(from, { replace: true });
-
         toast.success("Successfully Loggged In");
+        setLoginLoading(false);
       })
       .catch((err) => {
         toast.error(err.message);
+        setLoginLoading(false);
+        return;
       });
+    setLoginLoading(false);
+  };
+
+  const saveUser = (userData) => {
+    console.log(userData);
+
+    axios
+      .post("https://resales-utopia-server.vercel.app/users", userData)
+      .then((res) => {
+        if (res.data.result.acknowledged) {
+          toast.success("User Created");
+          setUserEmail(userData.email);
+
+          toast.success("Successfully Logged In");
+          navigate(from, { replace: true });
+          setUserEmail("");
+        }
+      })
+      .catch((err) => console.error(err));
     setLoginLoading(false);
   };
 

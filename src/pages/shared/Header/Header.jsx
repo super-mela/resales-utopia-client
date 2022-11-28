@@ -12,7 +12,8 @@ const Header = () => {
   // Navbar Scroll Effect
   const [scroll, setScroll] = useState(false);
   const { user, logout } = useContext(AuthContext);
-  const [userType] = useUserType(user?.email);
+
+  const [userType] = useUserType(user?.email, user);
 
   const handleLogout = () => {
     logout().then((res) => {
@@ -131,10 +132,10 @@ const Header = () => {
         </p>
         <div className="flex gap-4 items-center">
           {/* Profile Image */}
-          <div className="avatar">
+          <div className="avatar tooltip  tooltip-left" data-tip={user?.email}>
             <div className="w-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               {user?.photoURL ? (
-                <img src={user?.photoURL} alt="profile" />
+                <img src={user?.photoURL} alt="profile" className="" />
               ) : (
                 <FaUserCircle className="w-full h-full" />
               )}
