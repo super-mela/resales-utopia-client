@@ -7,6 +7,7 @@ import AllBuyers from "../../pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../pages/Dashboard/Dashboard/Dashboard";
 import MyBuyers from "../../pages/Dashboard/MyBuyers/MyBuyers";
+import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../pages/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../../pages/Dashboard/ReportedItems/ReportedItems";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
@@ -14,7 +15,9 @@ import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import Products from "../../pages/Products/Products/Products";
 import Register from "../../pages/Register/Register";
+import BuyerRoutes from "../BuyerRoutes/BuyerRoutes";
 import PrivateRoute from "../privateRoute/PrivateRoute";
+import SellerRoutes from "../SellerRoutes/SellerRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -53,12 +56,30 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addproduct",
-        element: <AddProduct></AddProduct>,
+        loader: () => {
+          return axios.get(
+            `https://resales-utopia-server.vercel.app/categories/names`
+          );
+        },
+        element: (
+          <SellerRoutes>
+            <AddProduct></AddProduct>
+          </SellerRoutes>
+        ),
       },
       {
         path: "/myproducts",
         element: <MyProducts></MyProducts>,
       },
+      {
+        path: "/myorders",
+        element: (
+          <BuyerRoutes>
+            <MyOrders></MyOrders>
+          </BuyerRoutes>
+        ),
+      },
+
       {
         path: "/mybuyers",
         element: <MyBuyers></MyBuyers>,

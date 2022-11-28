@@ -6,11 +6,13 @@ import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import useUserType from "../../../hooks/useUserType/useUserType";
 
 const Header = () => {
   // Navbar Scroll Effect
   const [scroll, setScroll] = useState(false);
   const { user, logout } = useContext(AuthContext);
+  const [userType] = useUserType(user?.email);
 
   const handleLogout = () => {
     logout().then((res) => {
@@ -56,41 +58,54 @@ const Header = () => {
             <AiOutlineCaretDown />
           </NavLink>
           <ul className="p-2 bg-white">
-            <li>
-              <Link to={"/myorders"} className="border-b">
-                My Order
-              </Link>
-            </li>
-            <li>
-              <Link to={"/addproduct"} className="border-b">
-                Add A Product
-              </Link>
-            </li>
-            <li>
-              <Link to={"/myproducts"} className="border-b">
-                My Products
-              </Link>
-            </li>
-            <li>
-              <Link to={"/mybuyers"} className="border-b">
-                My Buyers
-              </Link>
-            </li>
-            <li>
-              <Link to={"/allsellers"} className="border-b">
-                All Sellers
-              </Link>
-            </li>
-            <li>
-              <Link to={"/allbuyers"} className="border-b">
-                All Buyers
-              </Link>
-            </li>
-            <li>
-              <Link to={"/reportedItems"} className="border-b">
-                Reported Items
-              </Link>
-            </li>
+            {userType === "Buyer" && (
+              <li>
+                <Link to={"/myorders"} className="border-b">
+                  My Orders
+                </Link>
+              </li>
+            )}
+
+            {userType === "Seller" && (
+              <>
+                <li>
+                  <Link to={"/addproduct"} className="border-b">
+                    Add A Product
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/myproducts"} className="border-b">
+                    My Products
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/mybuyers"} className="border-b">
+                    My Buyers
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {userType === "Admin" && (
+              <>
+                {" "}
+                <li>
+                  <Link to={"/allsellers"} className="border-b">
+                    All Sellers
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/allbuyers"} className="border-b">
+                    All Buyers
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/reportedItems"} className="border-b">
+                    Reported Items
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </li>
       )}

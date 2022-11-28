@@ -1,4 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -17,7 +18,7 @@ import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(false);
-  const { login } = useContext(AuthContext);
+  const { login, googleLogin } = useContext(AuthContext);
   const [userEmail, setUserEmail] = useState("");
 
   const [token] = useJwtToken(userEmail);
@@ -36,12 +37,42 @@ const Login = () => {
     criteriaMode: "all",
   });
 
+  const handleGoogleLogin = () => {
+    setLoginLoading(true);
+    googleLogin()
+      .then((res) => {
+        const user = {
+          name: res.user.name,
+          email: res.user.email,
+          userType: "Buyer",
+        };
+        saveUser(user);
+      })
+      .catch((err) => toast.error(err.message));
+
+    setLoginLoading(false);
+  };
+
+  const saveUser = (user) => {
+    axios
+      .post("https://resales-utopia-server.vercel.app/users", user)
+      .then((res) => {
+        setUserEmail(user.email);
+        toast.success("Successfully Logged In");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || err.message);
+      });
+  };
+
   const handleLogin = (data) => {
     setLoginLoading(true);
     login(data.email, data.password)
       .then((res) => {
         setUserEmail(data.email);
         navigate(from, { replace: true });
+
         toast.success("Successfully Loggged In");
       })
       .catch((err) => {
@@ -176,7 +207,11 @@ const Login = () => {
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button
+            onClick={handleGoogleLogin}
+            aria-label="Log in with Google"
+            className="p-3 rounded-sm"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"

@@ -5,7 +5,7 @@ import IconWrapper from "../../../components/IconWrapper/IconWrapper";
 
 const ProductCard = () => {
   return (
-    <div className="card card-compact bg-base-100 rounded-sm">
+    <div className="card card-compact bg-white text-neutral font-urbanist rounded-sm">
       <figure>
         <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
       </figure>

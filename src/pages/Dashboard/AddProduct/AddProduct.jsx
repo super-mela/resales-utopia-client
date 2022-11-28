@@ -1,22 +1,86 @@
 import { ErrorMessage } from "@hookform/error-message";
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import banner from "../../../assets/banner-slide3.png";
 import TopBanner from "../../../components/TopBanner/TopBanner";
 import ValidationError from "../../shared/ValidationError/ValidationError";
 
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import LoginLoader from "../../../components/loginLoader/LoginLoader";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { instance } from "../../../utils/AxiosInstance";
+
 const AddProduct = () => {
+  const {
+    data: { result: categories },
+  } = useLoaderData();
+  const [createLoading, setCreateLoading] = useState(false);
+  const formData = new FormData();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ criteriaMode: "all" });
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleAddProduct = (data) => {
-    console.log(data);
+    setCreateLoading(true);
+    formData.append("image", data?.photoUrl[0]);
+    // Image upload
+    axios({
+      method: "post",
+      url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
+      data: formData,
+    })
+      .then((res) => {
+        if (res?.data?.success) {
+          /* set User profile to state to access from another context */
+          console.log(res.data.data.url);
+          const { photoUrl, ...rest } = data;
+          const product = { ...rest, photoURL: res.data.data.url };
+
+          console.log(product);
+
+          // save in database
+          saveProductInfo(product);
+        } else {
+          toast.error("Failed to upload picture");
+          return;
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setCreateLoading(false);
+        return;
+      });
+    setCreateLoading(false);
+  };
+
+  const saveProductInfo = (product) => {
+    instance
+      .post(`/products?email=${user.email}`, product)
+      // axios({
+      //   method: "post",
+      //   url: `https://resales-utopia-server.vercel.app/products?email=${user.email}`,
+      //   // headers: {
+      //   //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      //   // },
+      //   data: product,
+      // })
+      .then((res) => {
+        toast.success("Product Added");
+        navigate("/myproducts");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.message);
+      });
   };
 
   return (
@@ -152,9 +216,11 @@ const AddProduct = () => {
                     className="w-full h-full focus:outline-none bg-transparent"
                     {...register("category")}
                   >
-                    <option>Good</option>
-                    <option>Excellent</option>
-                    <option selected>Fair</option>
+                    {categories.map((category) => (
+                      <option key={category._id}>
+                        {category.categoryName}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -219,20 +285,96 @@ const AddProduct = () => {
                 <label for="Date" className="text-sm">
                   Purchase Year
                 </label>
-                <DatePicker
-                  className="rounded-sm border w-full px-2"
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  dateFormat="dd-MM-yyyy"
-                  showYearDropdown
-                  scrollableMonthYearDropdown
-                  showMonthDropdown
+                <input
+                  type="text"
+                  placeholder="Purchase Year"
+                  className="w-full rounded-sm px-2 border"
+                  {...register("purchaseYear", {
+                    required: "Purchase is required",
+                  })}
                 />
+                <ErrorMessage
+                  errors={errors}
+                  name="purchaseYear"
+                  render={({ messages }) => {
+                    return messages
+                      ? Object.entries(messages).map(([type, message]) => (
+                          <ValidationError
+                            key={type}
+                            message={message}
+                          ></ValidationError>
+                        ))
+                      : null;
+                  }}
+                />
+              </div>
+
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="username" className="block ">
+                  Photo
+                </label>
+                <input
+                  type="file"
+                  placeholder="Photo Url"
+                  className="w-full rounded-sm px-2 border py-1"
+                  {...register("photoUrl", {
+                    required: "PhotoUrl is required!",
+                  })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="photoUrl"
+                  render={({ messages }) => {
+                    return messages
+                      ? Object.entries(messages).map(([type, message]) => (
+                          <ValidationError
+                            key={type}
+                            message={message}
+                          ></ValidationError>
+                        ))
+                      : null;
+                  }}
+                />
+              </div>
+
+              <div className="col-span-full sm:col-span-3">
+                <label for="Date" className="text-sm">
+                  Product Description
+                </label>
+                <textarea
+                  className="textarea w-full border rounded-sm bg-white"
+                  placeholder="Product Description"
+                  {...register("desc", {
+                    required: "Description Year is required",
+                  })}
+                ></textarea>
+                <ErrorMessage
+                  errors={errors}
+                  name="desc"
+                  render={({ messages }) => {
+                    return messages
+                      ? Object.entries(messages).map(([type, message]) => (
+                          <ValidationError
+                            key={type}
+                            message={message}
+                          ></ValidationError>
+                        ))
+                      : null;
+                  }}
+                />
+
+                {/* image */}
               </div>
             </div>
           </fieldset>
           <div className="flex justify-center mt-5">
-            <button className="btn-primary">Create</button>
+            <button
+              className="btn-primary disabled:bg-gray-500 flex justify-center items-center gap-1"
+              type="submit"
+              disabled={createLoading}
+            >
+              Add Product {createLoading && <LoginLoader></LoginLoader>}
+            </button>
           </div>
         </form>
       </section>

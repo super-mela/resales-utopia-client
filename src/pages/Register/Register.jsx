@@ -9,11 +9,11 @@ import {
   AiTwotoneEyeInvisible,
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import useJwtToken from "../../hooks/useToken/useJwtToken";
+import { getJwtToken } from "../../utils/SaveUser/GetJwtToken/GetJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
@@ -21,11 +21,13 @@ const Register = () => {
   const formData = new FormData();
   const { createUser, updateUserProfile, googleLogin } =
     useContext(AuthContext);
-  const [userEmail, setUserEmail] = useState("");
+
   const [signUploading, setSignUpLoading] = useState(false);
 
-  const [token] = useJwtToken(userEmail);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const [userEmail, setUserEmail] = useState("");
 
   const {
     register,
@@ -47,7 +49,10 @@ const Register = () => {
 
         saveUser(user);
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        toast.error(err.message);
+        return;
+      });
   };
 
   const handleRegister = (data) => {
@@ -74,11 +79,13 @@ const Register = () => {
           signupUser(user);
         } else {
           toast.error("Failed to upload picture");
+          return;
         }
       })
       .catch((err) => {
         toast.error(err.message);
         setSignUpLoading(false);
+        return;
       });
   };
 
@@ -87,19 +94,19 @@ const Register = () => {
     createUser(user.email, user.password)
       .then((res) => {
         // updateUser
+        saveUser(user);
         updateUserProfile(user.name, user.photoURL)
-          .then((res) => {
-            // save in the database
-            saveUser(user);
-          })
+          .then((res) => {})
           .catch((err) => {
             toast.error(err.message);
             setSignUpLoading(false);
+            return;
           });
       })
       .catch((err) => {
         toast.error(err.message);
         setSignUpLoading(false);
+        return;
       });
   };
 
@@ -112,13 +119,13 @@ const Register = () => {
         userType: user.userType,
       })
       .then((res) => {
-        setUserEmail(user.email);
-        if (token) {
-          toast.success("Your account is successfully created");
-        }
+        getJwtToken(user.email);
+        toast.success("Successfully created account");
+        navigate("/");
       })
       .catch((err) => {
         toast.error(err.response.data.message || err.message);
+        return;
       });
     setSignUpLoading(false);
   };
