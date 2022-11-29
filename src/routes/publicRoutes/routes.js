@@ -36,6 +36,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/products/:id",
+        loader: () => {
+          return axios.get(
+            "https://resales-utopia-server.vercel.app/categories"
+          );
+        },
         element: <Products></Products>,
       },
       {

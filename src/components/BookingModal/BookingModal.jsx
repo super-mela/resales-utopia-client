@@ -1,9 +1,13 @@
 import { ErrorMessage } from "@hookform/error-message";
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import ValidationError from "../../pages/shared/ValidationError/ValidationError";
 
-const BookingModal = () => {
+const BookingModal = ({ bookingProduct, setBookingProduct }) => {
+  const { user } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -12,8 +16,19 @@ const BookingModal = () => {
     criteriaMode: "all",
   });
 
-  const handleBooking = (data, e) => {
+  const handleBooking = (data) => {
     console.log(data);
+    axios
+      .post(`https://resales-utopia-server.vercel.app/bookings`, {
+        ...data,
+        productId: bookingProduct._id,
+      })
+      .then((res) => {
+        if (res.data.result.acknowledged) {
+          toast.success("Product Booked");
+          setBookingProduct("");
+        }
+      });
   };
   return (
     <div>
@@ -35,7 +50,7 @@ const BookingModal = () => {
               disabled
               name="email"
               type="email"
-              defaultValue="email@gmail.com"
+              defaultValue={user?.email}
               className="input border-none w-full disabled:bg-gray-300 disabled:text-secondary"
               {...register("email")}
             />
@@ -43,21 +58,21 @@ const BookingModal = () => {
             <input
               disabled
               type="text"
-              defaultValue="name"
+              defaultValue={user?.displayName}
               className="input border-none w-full disabled:bg-gray-300 disabled:text-secondary"
               {...register("name")}
             />
             <input
               disabled
               type="text"
-              defaultValue="Item Name"
+              defaultValue={bookingProduct.productName}
               className="input border-none w-full disabled:bg-gray-300 disabled:text-secondary"
               {...register("itemName")}
             />
             <input
               disabled
               type="text"
-              defaultValue="price"
+              defaultValue={bookingProduct.sellingPrice}
               className="input border-none w-full disabled:bg-gray-300 disabled:text-secondary"
               {...register("price")}
             />
@@ -108,7 +123,7 @@ const BookingModal = () => {
             <input
               type="submit"
               value={"Submit"}
-              className="input border-none w-full btn-secondary cursor-pointer"
+              className="input border-none w-full btn-action cursor-pointer my-2"
             />
           </form>
         </div>

@@ -1,14 +1,16 @@
 import { format } from "date-fns/esm";
 import React from "react";
 import { AiFillHeart, AiOutlineFieldTime } from "react-icons/ai";
-import { BiPurchaseTag } from "react-icons/bi";
-import { FaUserTie } from "react-icons/fa";
+import { BiPurchaseTag, BiUser } from "react-icons/bi";
 import { FiEye } from "react-icons/fi";
 import { GoLocation } from "react-icons/go";
+import { MdVerified } from "react-icons/md";
 import { TbCurrencyTaka } from "react-icons/tb";
 import IconWrapper from "../../../components/IconWrapper/IconWrapper";
 
 const ProductCard = ({
+  setBookingProduct,
+  product,
   product: {
     productName,
     buyingPrice,
@@ -35,8 +37,11 @@ const ProductCard = ({
 
       <div className="card-body gap-1 py-2 px-4">
         <span className="text-gray-500 text-[17px] flex items-center gap-1">
-          <FaUserTie />
-          <p>{seller}</p>
+          <BiUser />
+          <span className="flex">
+            <p>{seller}</p>
+            <MdVerified className="text-blue-600" />
+          </span>
         </span>
 
         <div className="flex justify-between items-center">
@@ -104,7 +109,11 @@ const ProductCard = ({
               <AiFillHeart className="text-white" dataTip="Add to Wishlist" />
             </IconWrapper>
           </div>
-          <label htmlFor="booking-modal" className="btn-action px-3 py-2">
+          <label
+            htmlFor="booking-modal"
+            className="btn-action px-3 py-2"
+            onClick={() => setBookingProduct(product)}
+          >
             Book Now
           </label>
         </div>

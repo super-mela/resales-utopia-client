@@ -1,14 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import BookingModal from "../../../components/BookingModal/BookingModal";
 import TopBanner from "../../../components/TopBanner/TopBanner";
 import Preloader from "../../shared/Preloader/Preloader";
 import ProductCard from "../ProductCard/ProductCard";
 
 const Products = () => {
+  const {
+    data: { result: categories },
+  } = useLoaderData();
+
   const { id } = useParams();
-  console.log(`https://resales-utopia-server.vercel.app/products/${id}`);
+  const navigate = useNavigate();
+  const [bookingProduct, setBookingProduct] = useState("");
+
   const {
     data: { products } = [],
     isLoading,
@@ -20,7 +26,6 @@ const Products = () => {
         (res) => res.json()
       ),
   });
-  console.log(products);
 
   if (isLoading) {
     return <Preloader></Preloader>;
@@ -28,7 +33,7 @@ const Products = () => {
 
   return (
     <div>
-      <TopBanner>Category</TopBanner>
+      <TopBanner>{categories[0].categoryName}</TopBanner>
       <div className="my-10 px-24">
         <div className="w-full text-secondary">
           {/* top bar */}
@@ -39,14 +44,18 @@ const Products = () => {
                 <option disabled selected>
                   All Categories
                 </option>
-                <option>Homer</option>
-                <option>Marge</option>
-                <option>Bart</option>
-                <option>Lisa</option>
-                <option>Maggie</option>
+                {categories.map((category) => (
+                  <option onClick={() => navigate(`/products/${category._id}`)}>
+                    <Link to={`/products/${category._id}`}>
+                      {category.categoryName}
+                    </Link>
+                  </option>
+                ))}
               </select>
             </div>
-            <p>15 products found on Category. </p>
+            <p>
+              {products.length} Products Found on {categories[0].categoryName}.{" "}
+            </p>
             {/* Sort */}
             <div>
               <select className="w-full  outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
@@ -66,12 +75,21 @@ const Products = () => {
           {/* products */}
           <div className="grid grid-cols-4 gap-5 my-10">
             {products?.map((product) => (
-              <ProductCard key={product._id} product={product}></ProductCard>
+              <ProductCard
+                key={product._id}
+                product={product}
+                setBookingProduct={setBookingProduct}
+              ></ProductCard>
             ))}
           </div>
         </div>
       </div>
-      <BookingModal></BookingModal>
+      {bookingProduct && (
+        <BookingModal
+          bookingProduct={bookingProduct}
+          setBookingProduct={setBookingProduct}
+        ></BookingModal>
+      )}
     </div>
   );
 };

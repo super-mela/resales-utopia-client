@@ -43,7 +43,10 @@ const CategoriesSwipper = ({
       >
         {categories.map((category) => (
           <SwiperSlide key={category._id}>
-            <CategoriesCard category={category}></CategoriesCard>
+            <CategoriesCard
+              categories={categories}
+              category={category}
+            ></CategoriesCard>
           </SwiperSlide>
         ))}
       </Swiper>
