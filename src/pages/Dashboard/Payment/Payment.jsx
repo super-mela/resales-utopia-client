@@ -7,9 +7,7 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import Preloader from "../../shared/Preloader/Preloader";
 import Checkout from "../Checkout/Checkout";
 const Payment = () => {
-  const stripePromise = loadStripe(
-    "pk_test_51M5wKgL6Av66sfDxrzKdiKXsSRTZkWEdHicVQ2SJK4geG6P8qpBlbl9lvjs3L6cwo9EYsZPA4XEPDoKylGzlcX1N00MsGExXk1"
-  );
+  const stripePromise = loadStripe(process.env.REACT_APP_Stripe_KEY);
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   console.log(
