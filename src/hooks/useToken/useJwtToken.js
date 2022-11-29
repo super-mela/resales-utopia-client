@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 const useJwtToken = (email) => {
   console.log("useToken Called", email);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   useEffect(() => {
     if (email) {
       fetch(`https://resales-utopia-server.vercel.app/jwt?email=${email}`)

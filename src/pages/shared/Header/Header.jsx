@@ -13,7 +13,7 @@ const Header = () => {
   const [scroll, setScroll] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
-  const [userType] = useUserType(user?.email, user);
+  const [userType] = useUserType(user?.email);
 
   const handleLogout = () => {
     logout().then((res) => {
@@ -166,7 +166,7 @@ const Header = () => {
       {/* main navigations */}
       <div
         className={`navbar min-h-[72px] z-10  h-[72px] bg-white max-w-[1290px] mx-auto lg:rounded-sm px-5 mt-4 text-neutral ${
-          scroll && "fixed rounded-none top-[-20px] max-w-full"
+          scroll && "fixed rounded-none top-[-20px] max-w-full backdrop-blur-sm"
         }`}
       >
         <div className="navbar-start w-full">

@@ -9,6 +9,10 @@ const AdminRoutes = ({ children }) => {
   const { user } = useContext(AuthContext);
 
   const [userType, userTypeLoading] = useUserType(user?.email);
+  console.log(
+    "🚀 ~ file: AdminRoutes.jsx ~ line 12 ~ AdminRoutes ~ userType",
+    userType
+  );
 
   if (userTypeLoading) {
     return <Preloader></Preloader>;

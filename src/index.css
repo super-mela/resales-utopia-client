@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "~react-image-gallery/styles/css/image-gallery.css";
 @layer components {
   .btn-primary {
     @apply px-5 py-3 bg-primary text-center w-36 font-urbanist border-2 border-primary font-semibold text-white text-[20px] rounded-sm hover:bg-info hover:text-primary;
