@@ -195,7 +195,10 @@ const Header = () => {
               {menuItems}
             </ul>
           </div>
-          <Link className="flex gap-2 items-center font-mulish uppercase text-xl font-bold">
+          <Link
+            to={"/"}
+            className="flex gap-2 items-center font-mulish uppercase text-xl font-bold"
+          >
             <img
               src={logo}
               alt="logo"

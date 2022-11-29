@@ -40,7 +40,7 @@ const ProductCard = ({
           <BiUser />
           <span className="flex">
             <p>{seller}</p>
-            <MdVerified className="text-blue-600" />
+            {verifiedSeller && <MdVerified className="text-blue-600" />}
           </span>
         </span>
 
