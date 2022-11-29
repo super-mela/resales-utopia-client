@@ -13,7 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import useJwtToken from "../../hooks/useToken/useJwtToken";
+import { getJwtToken } from "../../utils/SaveUser/GetJwtToken/GetJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Login = () => {
@@ -21,8 +21,8 @@ const Login = () => {
   const { login, googleLogin } = useContext(AuthContext);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  const [userEmail, setUserEmail] = useState("");
-  const [token] = useJwtToken(userEmail);
+  // const [userEmail, setUserEmail] = useState("");
+  // const [token] = useJwtToken(userEmail);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Login = () => {
     googleLogin()
       .then((res) => {
         // saveUser in database
-        setUserEmail(res.user.email);
+        // setUserEmail(res.user.email);
         const user = {
           name: res.user.displayName,
           email: res.user.email,
@@ -60,7 +60,8 @@ const Login = () => {
     setLoginLoading(true);
     login(data.email, data.password)
       .then((res) => {
-        setUserEmail(data.email);
+        // setUserEmail(data.email);
+        getJwtToken(data.email);
         navigate(from, { replace: true });
         toast.success("Successfully Loggged In");
         setLoginLoading(false);
@@ -74,18 +75,17 @@ const Login = () => {
   };
 
   const saveUser = (userData) => {
-    console.log(userData);
-
     axios
       .post("https://resales-utopia-server.vercel.app/users", userData)
       .then((res) => {
         if (res.data.result.acknowledged) {
           toast.success("User Created");
-          setUserEmail(userData.email);
+          // setUserEmail(userData.email);
+          getJwtToken(userData.email);
 
           toast.success("Successfully Logged In");
           navigate(from, { replace: true });
-          setUserEmail("");
+          // setUserEmail("");
         }
       })
       .catch((err) => console.error(err));

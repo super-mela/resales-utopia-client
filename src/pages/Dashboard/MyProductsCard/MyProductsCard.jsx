@@ -16,8 +16,9 @@ const MyProductsCard = ({
   const { user } = useContext(AuthContext);
 
   const addToAdvertisement = () => {
+    const { _id, ...rest } = product;
     instance
-      .post(`/advertise?email=${user?.email}`, product)
+      .post(`/advertise?email=${user?.email}`, { ...rest, productId: _id })
       .then((res) => {
         if (res.data.result.acknowledged) {
           toast.success("Product Added for the advertisement.");
@@ -33,7 +34,7 @@ const MyProductsCard = ({
     <div className="relative card lg:h-[220px] lg:card-side bg-white rounded-sm border font-urbanist text-secondary">
       {/* badge */}
       <div className="badge badge-accent text-white absolute top-2 left-2 font-bold">
-        Available
+        {product?.paid ? "Sold Out" : "Available"}
       </div>
       <figure className="border-r p-1">
         <img

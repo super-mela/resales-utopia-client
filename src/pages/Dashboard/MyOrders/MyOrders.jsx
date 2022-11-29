@@ -24,7 +24,6 @@ const MyOrders = () => {
       ).then((res) => res.json()),
   });
 
-  console.log(bookingProducts);
   if (isLoading) {
     return <Preloader></Preloader>;
   }
@@ -34,7 +33,11 @@ const MyOrders = () => {
       <div className="lg:px-24 py-10 grid lg:grid-cols-2 grid-cols-1 gap-10">
         {bookingProducts?.length ? (
           bookingProducts?.map((booking) => (
-            <MyOrdersCard key={booking._id} booking={booking}></MyOrdersCard>
+            <MyOrdersCard
+              refetch={refetch}
+              key={booking._id}
+              booking={booking}
+            ></MyOrdersCard>
           ))
         ) : (
           <h1>No Data To show</h1>

@@ -1,10 +1,12 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import LoginLoader from "../../../components/loginLoader/LoginLoader";
 import Title from "../../../components/Title/Title";
 import TopBanner from "../../../components/TopBanner/TopBanner";
-import { instance } from "../../../utils/AxiosInstance";
 
 const Checkout = ({
+  booking,
   booking: { productName, sellingPrice, email, name, _id },
 }) => {
   const [cardError, setCardError] = useState("");
@@ -20,17 +22,21 @@ const Checkout = ({
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    instance
-      .post("http://localhost:5000/create-payment-intent", sellingPrice)
-      .then((res) => console.log(res));
+    // instance
+    //   .post("http://localhost:5000/create-payment-intent", sellingPrice)
+    //   .then((res) => console.log(res));
 
-    // fetch("http://localhost:5000/create-payment-intent", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ sellingPrice }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => setClientSecret(data.clientSecret));
+    fetch("https://resales-utopia-server.vercel.app/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sellingPrice }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((err) => {
+        console.error(err);
+        return;
+      });
   }, [sellingPrice]);
 
   const handleSubmit = async (event) => {
@@ -55,6 +61,8 @@ const Checkout = ({
 
     if (error) {
       setCardError(error);
+      setProcessing(false);
+      return;
     } else {
       setCardError("");
       console.log("[PaymentMethod]", paymentMethod);
@@ -82,9 +90,9 @@ const Checkout = ({
         sellingPrice,
         transactionId: paymentIntent.id,
         email,
-        bookingId: _id,
+        bookingId: booking.productId,
       };
-      fetch("http://localhost:5000/payments", {
+      fetch("https://resales-utopia-server.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -96,7 +104,10 @@ const Checkout = ({
         .then((data) => {
           console.log(data);
           if (data.insertedId) {
-            setSuccess("Congrats! your payment completed");
+            toast.success("Payment Completed");
+            setSuccess(
+              "Your Payment is Completed. Save the transaction id for future use."
+            );
             setTransactionId(paymentIntent.id);
           }
         });
@@ -109,10 +120,10 @@ const Checkout = ({
       <TopBanner>Payment</TopBanner>
 
       <form
-        className="w-full flex  flex-col gap-5 max-w-md bg-white p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-textPrimary"
+        className="w-full flex flex-col gap-5 max-w-md bg-white p-8 space-y-3 rounded-sm mx-auto my-10 border-2 text-neutral"
         onSubmit={handleSubmit}
       >
-        <Title>Payment</Title>
+        <Title>{productName}</Title>
         <CardElement
           options={{
             style: {
@@ -130,16 +141,18 @@ const Checkout = ({
           }}
         />
         <button
-          className=" btn-action my-5"
+          className=" btn-action my-5 disabled:bg-gray-500 flex items-center justify-center"
           type="submit"
           disabled={!stripe || !clientSecret || processing}
         >
-          Pay
+          Pay {processing && <LoginLoader></LoginLoader>}
         </button>
       </form>
-      <p className="text-red-400">{cardError.message}</p>
-      <p className="text-green-500">{success}</p>
-      <p className="text-green-500">Transaction Id: {transactionId}</p>
+      <div className="max-w-md mx-auto bg-white font-urbanist text-neutral rounded-sm border p-10 text-center mb-10">
+        <p>{cardError.message}</p>
+        <p>{success}</p>
+        <p className="font-bold text-accent">Transaction ID: {transactionId}</p>
+      </div>
     </div>
   );
 };

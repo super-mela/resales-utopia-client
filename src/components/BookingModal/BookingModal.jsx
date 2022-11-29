@@ -18,10 +18,12 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
 
   const handleBooking = (data) => {
     console.log(data);
+    const { _id, ...rest } = bookingProduct;
     axios
       .post(`https://resales-utopia-server.vercel.app/bookings`, {
         ...data,
-        ...bookingProduct,
+        ...rest,
+        productId: _id,
         email: user?.email,
         name: user?.displayName,
       })

@@ -24,7 +24,13 @@ const MyOrdersCard = ({
   },
 }) => {
   return (
-    <div className="relative card  bg-white rounded-sm border font-urbanist text-secondary">
+    <div className="relative card lg:card-side bg-white rounded-sm border font-urbanist text-secondary">
+      {booking?.paid && (
+        <div className="badge badge-accent text-white absolute top-2 left-2 font-bold">
+          Paid
+        </div>
+      )}
+
       <figure className="border-b">
         <img
           src={photoURL}
@@ -99,13 +105,15 @@ const MyOrdersCard = ({
           </span>
         </div>
         <div className="card-actions justify-center items-center mt-1">
-          <Link
-            to={`/payment/${_id}`}
-            className="btn-action px-3 py-2"
-            // onClick={() => setBookingProduct(product)}
-          >
-            Payment Order
-          </Link>
+          {!booking?.paid && (
+            <Link
+              to={`/payment/${_id}`}
+              className="btn-action px-3 py-2"
+              // onClick={() => setBookingProduct(product)}
+            >
+              Payment Order
+            </Link>
+          )}
         </div>
       </div>
     </div>

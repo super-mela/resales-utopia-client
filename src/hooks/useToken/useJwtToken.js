@@ -14,7 +14,8 @@ const useJwtToken = (email) => {
             localStorage.setItem("accessToken", data.token);
             setToken(data.token);
           } else {
-            toast.error("token failed");
+            toast.error("Token failed");
+            return;
           }
         });
     }

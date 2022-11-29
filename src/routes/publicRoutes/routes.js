@@ -16,7 +16,7 @@ import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import Products from "../../pages/Products/Products/Products";
 import Register from "../../pages/Register/Register";
-import BuyerRoutes from "../BuyerRoutes/BuyerRoutes";
+import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import SellerRoutes from "../SellerRoutes/SellerRoutes";
 
@@ -84,9 +84,9 @@ export const router = createBrowserRouter([
       {
         path: "/myorders",
         element: (
-          <BuyerRoutes>
+          <PrivateRoute>
             <MyOrders></MyOrders>
-          </BuyerRoutes>
+          </PrivateRoute>
         ),
       },
       {
@@ -100,19 +100,35 @@ export const router = createBrowserRouter([
 
       {
         path: "/mybuyers",
-        element: <MyBuyers></MyBuyers>,
+        element: (
+          <SellerRoutes>
+            <MyBuyers></MyBuyers>
+          </SellerRoutes>
+        ),
       },
       {
         path: "/allsellers",
-        element: <AllSellers></AllSellers>,
+        element: (
+          <AdminRoutes>
+            <AllSellers></AllSellers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/allBuyers",
-        element: <AllBuyers></AllBuyers>,
+        element: (
+          <AdminRoutes>
+            <AllBuyers></AllBuyers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/reportedItems",
-        element: <ReportedItems></ReportedItems>,
+        element: (
+          <AdminRoutes>
+            <ReportedItems></ReportedItems>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/blog",

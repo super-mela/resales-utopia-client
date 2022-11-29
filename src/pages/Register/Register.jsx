@@ -13,7 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginLoader from "../../components/loginLoader/LoginLoader";
 import TopBanner from "../../components/TopBanner/TopBanner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import useJwtToken from "../../hooks/useToken/useJwtToken";
+import { getJwtToken } from "../../utils/SaveUser/GetJwtToken/GetJwtToken";
 import ValidationError from "../shared/ValidationError/ValidationError";
 
 const Register = () => {
@@ -24,7 +24,7 @@ const Register = () => {
 
   const [signUploading, setSignUpLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  const [token] = useJwtToken(userEmail);
+  // const [token] = useJwtToken(userEmail);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -116,7 +116,8 @@ const Register = () => {
       .then((res) => {
         if (res.data.result.acknowledged) {
           toast.success("User Created");
-          setUserEmail(userData.email);
+          getJwtToken(userData.email);
+          // setUserEmail(userData.email);
 
           toast.success("Successfully Logged In");
           navigate(from, { replace: true });
