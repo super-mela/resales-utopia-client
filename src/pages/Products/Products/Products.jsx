@@ -54,7 +54,7 @@ const Products = () => {
               </select>
             </div>
             <p>
-              {products.length} Products Found on {categories[0].categoryName}.{" "}
+              {products?.length} Products Found on {categories[0].categoryName}.{" "}
             </p>
             {/* Sort */}
             <div>

@@ -21,7 +21,9 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
     axios
       .post(`https://resales-utopia-server.vercel.app/bookings`, {
         ...data,
-        productId: bookingProduct._id,
+        ...bookingProduct,
+        email: user?.email,
+        name: user?.displayName,
       })
       .then((res) => {
         if (res.data.result.acknowledged) {
