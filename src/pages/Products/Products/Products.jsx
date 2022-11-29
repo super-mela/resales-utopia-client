@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import BookingModal from "../../../components/BookingModal/BookingModal";
 import TopBanner from "../../../components/TopBanner/TopBanner";
 import Preloader from "../../shared/Preloader/Preloader";
@@ -12,7 +12,8 @@ const Products = () => {
   } = useLoaderData();
 
   const { id } = useParams();
-  const navigate = useNavigate();
+  const [categoryId, setCategoryId] = useState(id);
+
   const [bookingProduct, setBookingProduct] = useState("");
 
   const {
@@ -22,9 +23,9 @@ const Products = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch(`https://resales-utopia-server.vercel.app/products/${id}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://resales-utopia-server.vercel.app/products/${categoryId}`
+      ).then((res) => res.json()),
   });
 
   if (isLoading) {
@@ -39,13 +40,14 @@ const Products = () => {
           {/* top bar */}
           <div className="flex border text-gray-500 justify-between items-center py-0 px-2 rounded-sm">
             {/* Categories */}
+
             <div>
               <select className="w-full  outline-2 max-h-[50px] focus:outline-none px-2 py-1 m-1 border-2 rounded-sm">
                 <option disabled selected>
                   All Categories
                 </option>
                 {categories.map((category) => (
-                  <option onClick={() => navigate(`/products/${category._id}`)}>
+                  <option id={category._d}>
                     <Link to={`/products/${category._id}`}>
                       {category.categoryName}
                     </Link>
@@ -62,11 +64,8 @@ const Products = () => {
                 <option disabled selected>
                   Sort By
                 </option>
-                <option>Homer</option>
-                <option>Marge</option>
-                <option>Bart</option>
-                <option>Lisa</option>
-                <option>Maggie</option>
+                <option>Price</option>
+                <option>Name</option>
               </select>
             </div>
           </div>

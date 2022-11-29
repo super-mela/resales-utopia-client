@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -11,36 +10,27 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import bg from "../../../assets/line-red-top.png";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Title from "../../../components/Title/Title";
-import Preloader from "../../shared/Preloader/Preloader";
 import AdvertiseCard from "../AdvertiseCard/AdvertiseCard";
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
-const Advertise = () => {
-  const {
-    data: { adevertisements } = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["advertisement"],
-    queryFn: () =>
-      fetch(`https://resales-utopia-server.vercel.app/advertise`).then((res) =>
-        res.json()
-      ),
-  });
-
-  const unpaidProducts = adevertisements?.filter(
-    (advertisement) => advertisement.paid !== true
+const Advertise = ({ children: advertisements }) => {
+  console.log(
+    "🚀 ~ file: Advertise.jsx ~ line 18 ~ Advertise ~ children",
+    advertisements
   );
+  // const unpaidProducts = adevertisements?.filter(
+  //   (advertisement) => advertisement.paid !== true
+  // );
 
   // const images = unpaidProducts.map((advertisement) => ({
   //   original: advertisement.photoURL,
   //   thumbnail: advertisement.photoURL,
   // }));
 
-  if (isLoading) {
-    return <Preloader></Preloader>;
-  }
+  // if (isLoading) {
+  //   return <Preloader></Preloader>;
+  // }
 
   return (
     <section
@@ -75,7 +65,7 @@ const Advertise = () => {
           }}
           className="categoriesSwipper"
         >
-          {unpaidProducts.map((advertise) => (
+          {advertisements?.map((advertise) => (
             <SwiperSlide key={advertise._id}>
               <AdvertiseCard advertise={advertise}></AdvertiseCard>
             </SwiperSlide>

@@ -50,7 +50,8 @@ const Header = () => {
       {user && user?.uid && (
         <li tabIndex={0}>
           <NavLink
-            to={"/dashboard"}
+            end
+            // to={"/dashboard"}
             className={({ isActive }) =>
               isActive ? activeClassName : inActiveClassName
             }

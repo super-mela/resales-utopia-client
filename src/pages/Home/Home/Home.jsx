@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useLoaderData, useNavigation } from "react-router-dom";
 import Preloader from "../../shared/Preloader/Preloader";
@@ -9,17 +10,28 @@ const Home = () => {
   const categoriesData = useLoaderData();
   const navigation = useNavigation();
 
-  if (navigation.state === "loading") {
+  const {
+    data: { adevertisements } = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["advertisement"],
+    queryFn: () =>
+      fetch(`https://resales-utopia-server.vercel.app/advertise`).then((res) =>
+        res.json()
+      ),
+  });
+
+  if (navigation.state === "loading" || isLoading) {
     return <Preloader></Preloader>;
-  } else {
-    return (
-      <div>
-        <Banner></Banner>
-        <Advertise></Advertise>
-        <Categories categoriesData={categoriesData}></Categories>
-      </div>
-    );
   }
+  return (
+    <div>
+      <Banner></Banner>
+      {adevertisements?.length && <Advertise>{adevertisements}</Advertise>}
+      <Categories categoriesData={categoriesData}></Categories>
+    </div>
+  );
 };
 
 export default Home;

@@ -40,7 +40,9 @@ const MyOrders = () => {
             ></MyOrdersCard>
           ))
         ) : (
-          <h1>No Data To show</h1>
+          <div className="col-span-full text-accent min-h-[50vh] font-bold text-center">
+            <h3>You Dont have any orders. Please order first.</h3>
+          </div>
         )}
       </div>
     </div>
