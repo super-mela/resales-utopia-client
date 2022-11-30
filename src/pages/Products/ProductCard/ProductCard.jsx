@@ -35,7 +35,7 @@ const ProductCard = ({
         />
       </figure>
 
-      <div className="card-body gap-1 py-2 px-4">
+      <div className="card-body justify-between gap-1 py-2 px-4">
         <span className="text-gray-500 text-[17px] flex items-center gap-1">
           <BiUser />
           <span className="flex">

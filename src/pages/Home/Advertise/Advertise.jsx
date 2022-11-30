@@ -34,7 +34,7 @@ const Advertise = ({ children: advertisements }) => {
 
   return (
     <section
-      className="bg-no-repeat px-24 mx-auto bg-right  my-10"
+      className="bg-no-repeat lg:px-24 mx-auto bg-right  my-10"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <SectionTitle>Today's Featured Products</SectionTitle>
