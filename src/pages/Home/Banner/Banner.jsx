@@ -4,10 +4,10 @@ import banner from "../../../assets/h5-logo1.png";
 const Banner = () => {
   return (
     <div
-      className="bg-cover bg-no-repeat min-h-screen bg-bottom flex flex-col items-start justify-center px-24 font-urbanist"
+      className="bg-cover bg-no-repeat lg:min-h-screen h-[80vh] bg-bottom flex flex-col lg:items-start justify-center lg:px-24 px-5 font-urbanist items-center"
       style={{ backgroundImage: `url(${banner})` }}
     >
-      <h1 className="font-bold text-[4.25em] text-white">
+      <h1 className="font-bold lg:text-[4.25em] text-5xl text-white">
         Beautiful <br /> <span className="text-accent">Moments</span> for you
       </h1>
       <div className="flex gap-5 mt-5">

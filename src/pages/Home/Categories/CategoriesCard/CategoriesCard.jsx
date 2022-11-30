@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CategoriesCard = ({ category: { categoryName, desc, img, _id } }) => {
   return (
-    <div className="text-neutral font-urbanist grid grid-cols-5 bg-white rounded-sm gap-1 border w-[420px] h-[250px]">
+    <div className="text-neutral font-urbanist grid grid-cols-5 bg-white rounded-sm gap-1 border lg:w-[420px] w-[350px] h-[250px]">
       <figure className="col-span-2">
         <img
           src={img}
@@ -14,7 +14,9 @@ const CategoriesCard = ({ category: { categoryName, desc, img, _id } }) => {
       <div className="flex flex-col justify-between p-2 col-span-3">
         <div className="flex flex-col gap-2">
           <h2 className="text-[22px] font-bold leading-6">{categoryName}</h2>
-          <p className="font-mulish text-gray-500 text-xs">{desc}</p>
+          <p className="font-mulish text-gray-500 text-xs">
+            {desc?.length > 100 ? `${desc?.slice(0, 100)}...` : desc}
+          </p>
         </div>
         <div className="flex justify-center">
           <Link to={`/products/${_id}`} className="btn-action mx-auto">

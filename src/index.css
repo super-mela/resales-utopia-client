@@ -4,11 +4,11 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 @layer components {
   .btn-primary {
-    @apply px-5 py-3 bg-primary text-center w-36 font-urbanist border-2 border-primary font-semibold text-white text-[20px] rounded-sm hover:bg-info hover:text-primary;
+    @apply lg:px-5 lg:py-3 px-3 py-1 bg-primary text-center lg:w-36  font-urbanist border-2 border-primary font-semibold text-white text-[20px] rounded-sm hover:bg-info hover:text-primary;
     /* background: linear-gradient(95.45deg, #0082f8 0.64%, #1c40f2 98.23%); */
   }
   .btn-secondary {
-    @apply px-5 py-3 w-36 font-urbanist text-center font-semibold text-white bg-transparent border-2 border-white text-[20px] rounded-sm hover:bg-info hover:text-primary hover:border-info;
+    @apply lg:px-5 lg:py-3 px-3 py-1 lg:w-36 font-urbanist text-center font-semibold text-white bg-transparent border-2 border-white text-[20px] rounded-sm hover:bg-info hover:text-primary hover:border-info;
   }
   .btn-action {
     @apply rounded-3xl text-white border-2 text-sm border-primary font-bold text-center bg-primary  px-4 py-1 uppercase hover:bg-info hover:text-primary;

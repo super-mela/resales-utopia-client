@@ -5,6 +5,7 @@ import Preloader from "../../shared/Preloader/Preloader";
 import Advertise from "../Advertise/Advertise";
 import Banner from "../Banner/Banner";
 import Categories from "../Categories/Categories/Categories";
+import NewsLetter from "../NewsLetter/NewsLetter";
 
 const Home = () => {
   const categoriesData = useLoaderData();
@@ -30,6 +31,7 @@ const Home = () => {
       <Banner></Banner>
       {adevertisements?.length && <Advertise>{adevertisements}</Advertise>}
       <Categories categoriesData={categoriesData}></Categories>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

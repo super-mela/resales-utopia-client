@@ -8,7 +8,7 @@ import CategoriesSwipper from "../CategoriesSwipper/CategoriesSwipper";
 const Categories = ({ categoriesData }) => {
   return (
     <section
-      className="bg-no-repeat bg-right-bottom  px-24 mx-auto my-10 font-urbanist"
+      className="bg-no-repeat bg-right-bottom  lg:px-24 mx-auto my-10 font-urbanist"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <SectionTitle>We Have Perfect Match For You</SectionTitle>
