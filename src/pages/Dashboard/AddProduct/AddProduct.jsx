@@ -342,7 +342,7 @@ const AddProduct = () => {
                   Product Description
                 </label>
                 <textarea
-                  className="textarea w-full border rounded-sm bg-white"
+                  className="textarea w-full border-gray-400 rounded-sm bg-white"
                   placeholder="Product Description"
                   {...register("desc", {
                     required: "Description Year is required",
