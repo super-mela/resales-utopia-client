@@ -25,7 +25,7 @@ const UsersTable = ({ data, refetch }) => {
       .catch((err) => toast.error(err.message));
   };
   return (
-    <div className="px-24 py-5 font-urbanist text-secondary">
+    <div className="lg:px-24 py-5 font-urbanist text-secondary">
       <div className="container p-2 mx-auto sm:p-4">
         <Title>Buyers</Title>
         <div className="overflow-x-auto border">

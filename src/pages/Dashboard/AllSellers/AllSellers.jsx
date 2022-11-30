@@ -59,7 +59,7 @@ const AllSellers = () => {
     <div>
       <TopBanner>All Seller</TopBanner>
 
-      <div className="px-24 py-5 font-urbanist text-secondary">
+      <div className=";g:px-24 py-5 font-urbanist text-secondary">
         <div className="container p-2 mx-auto sm:p-4">
           <Title>Sellers</Title>
           <div className="overflow-x-auto border">

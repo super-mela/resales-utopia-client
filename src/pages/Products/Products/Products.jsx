@@ -23,9 +23,9 @@ const Products = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch(
-        `https://resales-utopia-server.vercel.app/products/${categoryId}`
-      ).then((res) => res.json()),
+      fetch(`https://resales-utopia-server.vercel.app/products/${id}`).then(
+        (res) => res.json()
+      ),
   });
 
   if (isLoading) {
@@ -35,10 +35,10 @@ const Products = () => {
   return (
     <div>
       <TopBanner>{categories[0].categoryName}</TopBanner>
-      <div className="my-10 px-24">
+      <div className="my-10 lg:px-24">
         <div className="w-full text-secondary">
           {/* top bar */}
-          <div className="flex border text-gray-500 justify-between items-center py-0 px-2 rounded-sm">
+          <div className="flex border lg:flex-row flex-col text-gray-500 justify-between items-center py-0 px-2 rounded-sm">
             {/* Categories */}
 
             <div>
@@ -72,7 +72,7 @@ const Products = () => {
           {/* top bar end*/}
 
           {/* products */}
-          <div className="grid grid-cols-4 gap-5 my-10">
+          <div className="grid lg:grid-cols-4 gap-5 my-10">
             {products?.map((product) => (
               <ProductCard
                 key={product._id}

@@ -57,12 +57,11 @@ The project is mainly for learning purposes. Resaled Utopia is an web applicatio
 - User can add their own opinion by creating an account.
 - Only logged in user can acces the full website.
 - Guest user can only visit the website.
-- Also logged in user can see their own revies at a glance.
+- sUser can purchase a product.
 - A dedicated blog section is to know updated technology.
-- Dynamic title will show the dynamic route of the navigations.
-- Authenticated user can create service and reviews.
+- Authenticated user can create service and.
 - Data is secured with JWT token.
-- Anyone can not get access easily dure to JWT token authorization.
+- Stripe payment gateway service.
 - Further common questions can be found in frequently ask questions section.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -73,22 +72,19 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 - REACT
 - TAILWIND CSS
-- Material Tailwind
-- Mamba UI
+- Daisy UI
 - REACT ROUTER
 
 ## Packages, library other technology used
 
 - React-hook-form
 - React-icons
-- React-Helmet
-- React-loader
-- React-photo-view
+- React-loader-spinner
+- Stripe
 - JWT token
 - Firebase Authentication
 - Vercel
-- GitHub authentication
-- Google authentiacation
+- Google authentication
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,10 +112,6 @@ Before get into run the project first make sure you have:
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/dabasishDasJoy/code-crate.git
-   ```
 2. Install NPM packages
    ```sh
    npm install
@@ -134,7 +126,10 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
    or
 
-## API Reference
+## Admin Access
+
+- Email:
+- Password:
 
 #### Get all courses
 

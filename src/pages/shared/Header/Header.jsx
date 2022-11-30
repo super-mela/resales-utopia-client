@@ -49,7 +49,7 @@ const Header = () => {
       </li>
       {user && user?.uid && (
         <li tabIndex={0}>
-          <NavLink
+          <div
             end
             // to={"/dashboard"}
             className={({ isActive }) =>
@@ -58,8 +58,8 @@ const Header = () => {
           >
             Dashboard
             <AiOutlineCaretDown />
-          </NavLink>
-          <ul className="p-2 bg-white">
+          </div>
+          <ul className="p-2 bg-white lg:top-10 lg:left-0 top-20 left-10">
             {userType === "Buyer" && (
               <li>
                 <Link to={"/myorders"} className="border-b">
