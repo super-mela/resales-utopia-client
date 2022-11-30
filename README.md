@@ -128,8 +128,8 @@ _Below is an example of how you can instruct your audience on installing and set
 
 ## Admin Access
 
-- Email:
-- Password:
+- Email: dabasish95@hero.com
+- Password: Resales2@
 
 #### Get all courses
 
