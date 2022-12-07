@@ -15,10 +15,6 @@ import AdvertiseCard from "../AdvertiseCard/AdvertiseCard";
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const Advertise = ({ children: advertisements }) => {
-  console.log(
-    "🚀 ~ file: Advertise.jsx ~ line 18 ~ Advertise ~ children",
-    advertisements
-  );
   // const unpaidProducts = adevertisements?.filter(
   //   (advertisement) => advertisement.paid !== true
   // );
