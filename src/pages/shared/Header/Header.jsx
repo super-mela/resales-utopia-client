@@ -178,7 +178,8 @@ const Header = () => {
       {/* main navigations */}
       <div
         className={` navbar min-h-[72px] z-10  h-[72px] bg-white max-w-[1290px] mx-auto lg:rounded-sm px-5 mt-4 text-neutral ${
-          scroll && "fixed rounded-none top-[-20px] backdrop-blur-sm max-w-full"
+          scroll &&
+          "fixed rounded-none top-[-20px] shadow-md backdrop-blur-sm max-w-full"
         }`}
       >
         <div className="navbar-start w-full">
