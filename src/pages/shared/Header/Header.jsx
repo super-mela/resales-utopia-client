@@ -58,10 +58,9 @@ const Header = () => {
           Home
         </NavLink>
       </li>
-      {user && user?.uid && (
+      {userType && user && (
         <li tabIndex={0}>
           <div
-            end
             // to={"/dashboard"}
             className={({ isActive }) =>
               isActive ? activeClassName : inActiveClassName
@@ -71,7 +70,7 @@ const Header = () => {
             <AiOutlineCaretDown />
           </div>
           <ul className="p-2 bg-white lg:top-10 lg:left-0 top-20 left-10">
-            {userType === "Buyer" && (
+            {userType && userType === "Buyer" && (
               <li>
                 <Link to={"/myorders"} className="border-b">
                   My Orders
@@ -79,7 +78,7 @@ const Header = () => {
               </li>
             )}
 
-            {userType === "Seller" && (
+            {userType && userType === "Seller" && (
               <>
                 <li>
                   <Link to={"/addproduct"} className="border-b">
@@ -99,7 +98,7 @@ const Header = () => {
               </>
             )}
 
-            {userType === "Admin" && (
+            {userType && userType === "Admin" && (
               <>
                 {" "}
                 <li>

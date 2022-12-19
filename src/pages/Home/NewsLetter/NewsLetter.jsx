@@ -11,7 +11,6 @@ const NewsLetter = () => {
       <div className="flex justify-center items-center mt-5">
         <input
           type="text"
-          name=""
           className="bg-gray-200 px-2 py-1"
           placeholder="Your email here"
         />
