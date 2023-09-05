@@ -59,32 +59,41 @@ const Register = () => {
     setSignUpLoading(true);
     formData.append("image", data?.photoUrl[0]);
     // Image upload
-    axios({
-      method: "post",
-      url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
-      data: formData,
-    })
-      .then((res) => {
-        if (res?.data?.success) {
-          /* set User profile to state to access from another context */
-          const userData = {
-            name: data.name,
-            email: data.email,
-            userType: data.userType,
-            photoURL: res.data.data.url,
-            password: data.password,
-          };
+    const userData = {
+      name: data.name,
+      email: data.email,
+      userType: data.userType,
+      password: data.password,
+    };
 
-          // createUser;
-          signupUser(userData);
-        } else {
-          toast.error("Failed to upload picture");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setSignUpLoading(false);
-      });
+    // createUser;
+    signupUser(userData);
+    // axios({
+    //   method: "post",
+    //   url: `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Image_Host_API}`,
+    //   data: formData,
+    // })
+    //   .then((res) => {
+    //     if (res?.data?.success) {
+    //       /* set User profile to state to access from another context */
+    //       const userData = {
+    //         name: data.name,
+    //         email: data.email,
+    //         userType: data.userType,
+    //         photoURL: res.data.data.url,
+    //         password: data.password,
+    //       };
+
+    //       // createUser;
+    //       signupUser(userData);
+    //     } else {
+    //       toast.error("Failed to upload picture");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     setSignUpLoading(false);
+    //   });
   };
 
   /* create User */
@@ -161,18 +170,18 @@ const Register = () => {
               render={({ messages }) => {
                 return messages
                   ? Object.entries(messages).map(([type, message]) => (
-                      <ValidationError
-                        key={type}
-                        message={message}
-                      ></ValidationError>
-                    ))
+                    <ValidationError
+                      key={type}
+                      message={message}
+                    ></ValidationError>
+                  ))
                   : null;
               }}
             />
           </div>
 
           {/* photourl */}
-          <div className="space-y-1 text-sm">
+          {/* <div className="space-y-1 text-sm">
             <label htmlFor="username" className="block ">
               Photo
             </label>
@@ -190,15 +199,15 @@ const Register = () => {
               render={({ messages }) => {
                 return messages
                   ? Object.entries(messages).map(([type, message]) => (
-                      <ValidationError
-                        key={type}
-                        message={message}
-                      ></ValidationError>
-                    ))
+                    <ValidationError
+                      key={type}
+                      message={message}
+                    ></ValidationError>
+                  ))
                   : null;
               }}
             />
-          </div>
+          </div> */}
 
           {/* email */}
           <div className="space-y-1 text-sm">
@@ -226,11 +235,11 @@ const Register = () => {
               render={({ messages }) => {
                 return messages
                   ? Object.entries(messages).map(([type, message]) => (
-                      <ValidationError
-                        key={type}
-                        message={message}
-                      ></ValidationError>
-                    ))
+                    <ValidationError
+                      key={type}
+                      message={message}
+                    ></ValidationError>
+                  ))
                   : null;
               }}
             />
@@ -299,11 +308,11 @@ const Register = () => {
               render={({ messages }) => {
                 return messages
                   ? Object.entries(messages).map(([type, message]) => (
-                      <ValidationError
-                        key={type}
-                        message={message}
-                      ></ValidationError>
-                    ))
+                    <ValidationError
+                      key={type}
+                      message={message}
+                    ></ValidationError>
+                  ))
                   : null;
               }}
             />
